@@ -13,18 +13,22 @@
   row_click={fn {_id, grocery} -> JS.navigate(~p"/groceries/#{grocery}") end}
 >
   <:col :let={{_id, grocery}} label="Name"><%= grocery.name %></:col>
-  <:action :let={{_id, grocery}}>
-    <div class="sr-only">
-      <.link navigate={~p"/groceries/#{grocery}"}>Show</.link>
-    </div>
-    <.link patch={~p"/groceries/#{grocery}/edit"}>Edit</.link>
-  </:action>
+
   <:action :let={{id, grocery}}>
     <.link
       phx-click={JS.push("delete", value: %{id: grocery.id}) |> hide("##{id}")}
       data-confirm="Are you sure?"
     >
-      Delete
+      <.icon name="hero-trash" class="h-5 w-5" />
+    </.link>
+  </:action>
+
+  <:action :let={{_id, grocery}}>
+    <div class="sr-only">
+      <.link navigate={~p"/groceries/#{grocery}"}>Show</.link>
+    </div>
+    <.link patch={~p"/groceries/#{grocery}/edit"}>
+      <.icon name="hero-pencil" class="h-5 w-5" />
     </.link>
   </:action>
 </.table>
