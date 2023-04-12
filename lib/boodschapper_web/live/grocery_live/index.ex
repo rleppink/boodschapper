@@ -4,8 +4,12 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   alias Boodschapper.Groceries
   alias Boodschapper.Groceries.Grocery
 
+  @topic inspect(__MODULE__)
+
   @impl true
   def mount(_params, _session, socket) do
+    Phoenix.PubSub.subscribe(Boodschapper.PubSub, @topic)
+
     {:ok, stream(socket, :groceries, Groceries.list_groceries())}
   end
 
@@ -34,13 +38,35 @@ defmodule BoodschapperWeb.GroceryLive.Index do
 
   @impl true
   def handle_info({BoodschapperWeb.GroceryLive.FormComponent, {:saved, grocery}}, socket) do
+    Phoenix.PubSub.broadcast(
+      Boodschapper.PubSub,
+      @topic,
+      {Boodschapper.PubSub, :saved, grocery}
+    )
+
     {:noreply, stream_insert(socket, :groceries, grocery)}
+  end
+
+  @impl true
+  def handle_info({Boodschapper.PubSub, :saved, grocery}, socket) do
+    {:noreply, stream_insert(socket, :groceries, grocery)}
+  end
+
+  @impl true
+  def handle_info({Boodschapper.PubSub, :deleted, grocery}, socket) do
+    {:noreply, stream_delete(socket, :groceries, grocery)}
   end
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     grocery = Groceries.get_grocery!(id)
     {:ok, _} = Groceries.delete_grocery(grocery)
+
+    Phoenix.PubSub.broadcast(
+      Boodschapper.PubSub,
+      @topic,
+      {Boodschapper.PubSub, :deleted, grocery}
+    )
 
     {:noreply, stream_delete(socket, :groceries, grocery)}
   end
