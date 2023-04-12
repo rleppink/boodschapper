@@ -1,0 +1,41 @@
+<.header>
+  Listing Groceries
+  <:actions>
+    <.link patch={~p"/groceries/new"}>
+      <.button>New Grocery</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="groceries"
+  rows={@streams.groceries}
+  row_click={fn {_id, grocery} -> JS.navigate(~p"/groceries/#{grocery}") end}
+>
+  <:col :let={{_id, grocery}} label="Name"><%= grocery.name %></:col>
+  <:action :let={{_id, grocery}}>
+    <div class="sr-only">
+      <.link navigate={~p"/groceries/#{grocery}"}>Show</.link>
+    </div>
+    <.link patch={~p"/groceries/#{grocery}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, grocery}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: grocery.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="grocery-modal" show on_cancel={JS.patch(~p"/groceries")}>
+  <.live_component
+    module={BoodschapperWeb.GroceryLive.FormComponent}
+    id={@grocery.id || :new}
+    title={@page_title}
+    action={@live_action}
+    grocery={@grocery}
+    patch={~p"/groceries"}
+  />
+</.modal>
