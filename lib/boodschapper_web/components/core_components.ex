@@ -143,17 +143,17 @@ defmodule BoodschapperWeb.CoreComponents do
 
   def flash_group(assigns) do
     ~H"""
-    <.flash kind={:info} title="Success!" flash={@flash} />
-    <.flash kind={:error} title="Error!" flash={@flash} />
+    <.flash kind={:info} title="Succesvol" flash={@flash} />
+    <.flash kind={:error} title="Fout" flash={@flash} />
     <.flash
       id="disconnected"
       kind={:error}
-      title="We can't find the internet"
+      title="Kan geen verbinding maken"
       phx-disconnected={show("#disconnected")}
       phx-connected={hide("#disconnected")}
       hidden
     >
-      Attempting to reconnect <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
+      <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin pr-4" /> Opnieuw verbinden...
     </.flash>
     """
   end
