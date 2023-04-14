@@ -20,19 +20,24 @@ defmodule BoodschapperWeb.GroceryLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Grocery")
+    |> assign(:page_title, "Pas boodschap aan")
     |> assign(:grocery, Groceries.get_grocery!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Grocery")
+    |> assign(:page_title, "Nieuwe boodschap")
     |> assign(:grocery, %Grocery{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Groceries")
+    |> assign(:page_title, "🛒 Boodschappen")
+    |> assign(:grocery, nil)
+  end
+
+  defp apply_action(socket, :check, _params) do
+    socket
     |> assign(:grocery, nil)
   end
 
