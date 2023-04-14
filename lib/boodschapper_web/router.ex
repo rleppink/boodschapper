@@ -17,14 +17,14 @@ defmodule BoodschapperWeb.Router do
   scope "/", BoodschapperWeb do
     pipe_through(:browser)
 
-    get("/", PageController, :home)
+    # get("/", PageController, :home)
 
-    live("/groceries", GroceryLive.Index, :index)
-    live("/groceries/new", GroceryLive.Index, :new)
-    live("/groceries/:id/edit", GroceryLive.Index, :edit)
+    live("/", GroceryLive.Index, :index)
+    live("/new", GroceryLive.Index, :new)
+    live("/:id/edit", GroceryLive.Index, :edit)
 
-    live("/groceries/:id", GroceryLive.Show, :show)
-    live("/groceries/:id/show/edit", GroceryLive.Show, :edit)
+    live("/:id", GroceryLive.Show, :show)
+    live("/:id/show/edit", GroceryLive.Show, :edit)
   end
 
   # Other scopes may use custom stacks.
