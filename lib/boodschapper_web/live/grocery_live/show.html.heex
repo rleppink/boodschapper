@@ -2,7 +2,7 @@
   Grocery <%= @grocery.id %>
   <:subtitle>This is a grocery record from your database.</:subtitle>
   <:actions>
-    <.link patch={~p"/groceries/#{@grocery}/show/edit"} phx-click={JS.push_focus()}>
+    <.link patch={~p"/#{@grocery}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit grocery</.button>
     </.link>
   </:actions>
@@ -12,15 +12,15 @@
   <:item title="Name"><%= @grocery.name %></:item>
 </.list>
 
-<.back navigate={~p"/groceries"}>Back to groceries</.back>
+<.back navigate={~p"/"}>Back to groceries</.back>
 
-<.modal :if={@live_action == :edit} id="grocery-modal" show on_cancel={JS.patch(~p"/groceries/#{@grocery}")}>
+<.modal :if={@live_action == :edit} id="grocery-modal" show on_cancel={JS.patch(~p"/#{@grocery}")}>
   <.live_component
     module={BoodschapperWeb.GroceryLive.FormComponent}
     id={@grocery.id}
     title={@page_title}
     action={@live_action}
     grocery={@grocery}
-    patch={~p"/groceries/#{@grocery}"}
+    patch={~p"/#{@grocery}"}
   />
 </.modal>

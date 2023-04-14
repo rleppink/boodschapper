@@ -1,22 +1,31 @@
-<.header>
-🛒 Boodschappen
+<.header class="mx-auto w-max mb-4">
+  🛒 Boodschappen
 </.header>
 
-<div id="groceries" phx-update="stream">
+<div id="groceries" phx-update="stream" class="max-w-prose mx-auto">
   <div :for={{dom_id, grocery} <- @streams.groceries} id={dom_id}>
-    <div phx-click={JS.navigate(~p"/#{grocery}")} class="py-2 flex flex-row hover:cursor-pointer hover:bg-zinc-50">
-      <span><%= grocery.name %></span>
-      <div>
+    <div phx-click={JS.navigate(~p"/#{grocery}")} class="py-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg px-4">
+      <span class="text-lg"><%= grocery.name %></span>
+      <div class="flex gap-1">
+        <div class="border rounded-full border-yellow-500 bg-yellow-100 px-2">Lidl</div>
+        <div class="border rounded-full border-blue-500 bg-blue-100 px-2">Albert Heijn</div>
+      </div>
+      <div class="flex gap-2">
         <.link
           phx-click={JS.push("delete", value: %{id: grocery.id}) |> hide("##{grocery.id}")}
           data-confirm="Are you sure?"
+          class="border rounded-lg px-2 py-1"
           >
           <.icon name="hero-trash" class="h-5 w-5" />
         </.link>
-        <.link patch={~p"/#{grocery}/edit"}>
+        <.link
+            patch={~p"/#{grocery}/edit"}
+            class="border rounded-lg px-2 py-1">
           <.icon name="hero-pencil" class="h-5 w-5" />
         </.link>
-        <.link phx-click="check">
+        <.link phx-click="check"
+        class="border rounded-lg px-2 py-1"
+        >
           <.icon name="hero-check" class="h-5 w-5" />
         </.link>
       </div>
