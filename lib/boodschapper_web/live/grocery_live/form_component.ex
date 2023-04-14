@@ -9,7 +9,6 @@ defmodule BoodschapperWeb.GroceryLive.FormComponent do
     <div>
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage grocery records in your database.</:subtitle>
       </.header>
 
       <.simple_form
@@ -19,9 +18,11 @@ defmodule BoodschapperWeb.GroceryLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:name]} type="text" label="Name" />
+        <.input field={@form[:name]} type="text" />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Grocery</.button>
+          <.button phx-disable-with="Opslaan...">
+            <.icon name="hero-check" class="h-5 w-5" /> Sla op
+          </.button>
         </:actions>
       </.simple_form>
     </div>
@@ -59,7 +60,7 @@ defmodule BoodschapperWeb.GroceryLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Grocery updated successfully")
+         |> put_flash(:info, "Boodschap is aangepast")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -74,7 +75,7 @@ defmodule BoodschapperWeb.GroceryLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Grocery created successfully")
+         |> put_flash(:info, "Boodschap is aangemaakt")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->

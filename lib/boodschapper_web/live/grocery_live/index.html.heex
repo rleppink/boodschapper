@@ -1,45 +1,45 @@
 <.header>
-  Listing Groceries
-  <:actions>
-    <.link patch={~p"/groceries/new"}>
-      <.button>New Grocery</.button>
-    </.link>
-  </:actions>
+🛒 Boodschappen
 </.header>
 
-<.table
-  id="groceries"
-  rows={@streams.groceries}
-  row_click={fn {_id, grocery} -> JS.navigate(~p"/groceries/#{grocery}") end}
->
-  <:col :let={{_id, grocery}} label="Name"><%= grocery.name %></:col>
-
-  <:action :let={{id, grocery}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: grocery.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      <.icon name="hero-trash" class="h-5 w-5" />
-    </.link>
-  </:action>
-
-  <:action :let={{_id, grocery}}>
-    <div class="sr-only">
-      <.link navigate={~p"/groceries/#{grocery}"}>Show</.link>
+<div id="groceries" phx-update="stream">
+  <div :for={{dom_id, grocery} <- @streams.groceries} id={dom_id}>
+    <div phx-click={JS.navigate(~p"/#{grocery}")} class="py-2 flex flex-row hover:cursor-pointer hover:bg-zinc-50">
+      <span><%= grocery.name %></span>
+      <div>
+        <.link
+          phx-click={JS.push("delete", value: %{id: grocery.id}) |> hide("##{grocery.id}")}
+          data-confirm="Are you sure?"
+          >
+          <.icon name="hero-trash" class="h-5 w-5" />
+        </.link>
+        <.link patch={~p"/#{grocery}/edit"}>
+          <.icon name="hero-pencil" class="h-5 w-5" />
+        </.link>
+        <.link phx-click="check">
+          <.icon name="hero-check" class="h-5 w-5" />
+        </.link>
+      </div>
     </div>
-    <.link patch={~p"/groceries/#{grocery}/edit"}>
-      <.icon name="hero-pencil" class="h-5 w-5" />
-    </.link>
-  </:action>
-</.table>
+  </div>
+</div>
 
-<.modal :if={@live_action in [:new, :edit]} id="grocery-modal" show on_cancel={JS.patch(~p"/groceries")}>
+<.modal :if={@live_action in [:new, :edit]} id="grocery-modal" show on_cancel={JS.patch(~p"/")}>
   <.live_component
     module={BoodschapperWeb.GroceryLive.FormComponent}
     id={@grocery.id || :new}
     title={@page_title}
     action={@live_action}
     grocery={@grocery}
-    patch={~p"/groceries"}
+    patch={~p"/"}
   />
 </.modal>
+
+<!--
+     <div class="fixed bottom-4 inset-x-0 mx-auto mx-4">
+     <div class="bg-white border-2 border-r-2 border-red-500 rounded flex flex-row items-center">
+     <.icon name="hero-plus" class="h-5 w-5" />
+     <input type="text" class="border-pink-500" />
+     </div>
+     </div>
+-->
