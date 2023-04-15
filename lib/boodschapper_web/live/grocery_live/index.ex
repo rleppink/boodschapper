@@ -62,6 +62,10 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     {:noreply, stream_delete(socket, :groceries, grocery)}
   end
 
+  def handle_info(:clear_flash, socket) do
+    {:noreply, clear_flash(socket)}
+  end
+
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     grocery = Groceries.get_grocery!(id)
@@ -74,5 +78,27 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     )
 
     {:noreply, stream_delete(socket, :groceries, grocery)}
+  end
+
+  @impl true
+  def handle_event("save", args, socket) do
+    save_grocery(socket, :new, args)
+  end
+
+  defp save_grocery(socket, :new, grocery_params) do
+    {:ok, grocery} = Groceries.create_grocery(grocery_params) |> IO.inspect(label: "grocery")
+
+    Phoenix.PubSub.broadcast(
+      Boodschapper.PubSub,
+      @topic,
+      {Boodschapper.PubSub, :saved, grocery}
+    )
+
+    Process.send_after(self(), :clear_flash, 2000)
+
+    {:noreply,
+     socket
+     |> stream_insert(:groceries, grocery)
+     |> put_flash(:info, "#{grocery.name} is toegevoegd")}
   end
 end

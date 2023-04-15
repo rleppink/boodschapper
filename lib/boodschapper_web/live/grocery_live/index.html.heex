@@ -1,19 +1,53 @@
-<.header class="mx-auto w-max mb-4">
-  🛒 Boodschappen
+<.header class="mx-auto w-max mb-4 flex flex-row">
+  <.icon name="hero-building-storefront" class="h-5 w-5 ml-2" />
+  Boodschappen huize Leppink
 </.header>
 
-<div id="groceries" phx-update="stream" class="max-w-prose mx-auto">
-  <div :for={{dom_id, grocery} <- @streams.groceries} id={dom_id}>
-    <div phx-click={JS.navigate(~p"/#{grocery}")} class="py-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg px-4">
-      <span class="text-lg"><%= grocery.name %></span>
-      <div class="flex gap-1">
-        <div class="border rounded-full border-yellow-500 bg-yellow-100 px-2">Lidl</div>
-        <div class="border rounded-full border-blue-500 bg-blue-100 px-2">Albert Heijn</div>
+      <div class="flex gap-1 mb-4">
+        <div class="border rounded-full border-yellow-500 bg-yellow-100 px-2 hover:cursor-pointer">
+          <span>Lidl</span>
+        </div>
+        <div class="border rounded-full border-blue-500 bg-blue-100 px-2 truncate hover:cursor-pointer">
+          <span>Albert Heijn</span>
+        </div>
       </div>
+
+<div class="fixed bottom-4 inset-x-4 mx-auto sm:relative sm:bottom-auto sm:mb-4 sm:inset-auto">
+  <div
+    class="bg-white border-2 rounded border-zinc-400
+           flex flex-row items-center
+           focus-within:ring focus-within:ring-offset-4">
+     <.icon name="hero-plus" class="h-5 w-5 ml-2" />
+     <form phx-submit="save" class="w-full">
+       <input autofocus name="name" type="text" class="w-full border-0 focus:ring-0" />
+     </form>
+  </div>
+</div>
+
+<div id="groceries" phx-update="stream">
+  <div :for={{dom_id, grocery} <- @streams.groceries} id={dom_id}>
+    <div
+      phx-click={JS.navigate(~p"/#{grocery}")}
+      class="py-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg px-4">
+      
+      <span class="text-lg"><%= grocery.name %></span>
+
+<div class="flex gap-4 items-center">
+
+      <div class="flex gap-1">
+        <div class="border rounded-full border-yellow-500 bg-yellow-100 px-2">
+          <span class="hidden sm:block">Lidl</span>
+          <span class="block sm:hidden">L</span>
+        </div>
+        <div class="border rounded-full border-blue-500 bg-blue-100 px-2 truncate">
+          <span class="hidden sm:block">Albert Heijn</span>
+          <span class="block sm:hidden">AH</span>
+        </div>
+      </div>
+
       <div class="flex gap-2">
         <.link
           phx-click={JS.push("delete", value: %{id: grocery.id}) |> hide("##{grocery.id}")}
-          data-confirm="Are you sure?"
           class="border rounded-lg px-2 py-1"
           >
           <.icon name="hero-trash" class="h-5 w-5" />
@@ -29,6 +63,9 @@
           <.icon name="hero-check" class="h-5 w-5" />
         </.link>
       </div>
+
+</div>
+
     </div>
   </div>
 </div>
@@ -44,11 +81,3 @@
   />
 </.modal>
 
-<!--
-     <div class="fixed bottom-4 inset-x-0 mx-auto mx-4">
-     <div class="bg-white border-2 border-r-2 border-red-500 rounded flex flex-row items-center">
-     <.icon name="hero-plus" class="h-5 w-5" />
-     <input type="text" class="border-pink-500" />
-     </div>
-     </div>
--->
