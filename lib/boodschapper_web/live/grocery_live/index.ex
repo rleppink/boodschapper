@@ -10,7 +10,10 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   def mount(_params, _session, socket) do
     Phoenix.PubSub.subscribe(Boodschapper.PubSub, @topic)
 
-    {:ok, stream(socket, :groceries, Groceries.list_groceries())}
+    {:ok,
+     socket
+     |> stream(:groceries, Groceries.list_groceries())
+     |> stream(:tags, Groceries.list_tags())}
   end
 
   @impl true
