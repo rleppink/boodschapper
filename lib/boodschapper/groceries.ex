@@ -7,6 +7,7 @@ defmodule Boodschapper.Groceries do
   alias Boodschapper.Repo
 
   alias Boodschapper.Groceries.Grocery
+  alias Boodschapper.Groceries.Tag
 
   @doc """
   Returns the list of groceries.
@@ -19,6 +20,17 @@ defmodule Boodschapper.Groceries do
   """
   def list_groceries do
     Repo.all(Grocery)
+  @doc """
+  Returns the list of tags.
+
+  ## Examples
+
+      iex> list_tags()
+      [%Tag{}, ...]
+
+  """
+  def list_tags do
+    Repo.all(Tag)
   end
 
   @doc """
