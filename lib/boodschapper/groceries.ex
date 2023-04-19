@@ -20,6 +20,9 @@ defmodule Boodschapper.Groceries do
   """
   def list_groceries do
     Repo.all(Grocery)
+    |> Repo.preload(:grocery_tags)
+  end
+
   @doc """
   Returns the list of tags.
 
@@ -47,7 +50,7 @@ defmodule Boodschapper.Groceries do
       ** (Ecto.NoResultsError)
 
   """
-  def get_grocery!(id), do: Repo.get!(Grocery, id)
+  def get_grocery!(id), do: Repo.get!(Grocery, id) |> Repo.preload(:grocery_tags)
 
   @doc """
   Creates a grocery.
