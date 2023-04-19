@@ -1,0 +1,27 @@
+#+title: Milestones
+
+* Archive :ARCHIVE:
+** DONE How to insert map of grocery with tags?
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-19 Wed 15:23
+:END:
+
+
+** DONE Insert grocery map:
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-19 Wed 15:55
+:END:
+def create_grocery
+%{
+   name: "Kaas",
+   tags: ["Lidl", "Jumbo"]
+}
+
+
+* TODO Add tag to grocery
+
+* TODO Create frontend for showing all tags
+
+* TODO Create frontend for adding tags
+
+* TODO Release v2 to fly.io
