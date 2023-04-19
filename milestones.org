@@ -18,7 +18,11 @@ def create_grocery
 }
 
 
-* TODO Add tag to grocery
+** DONE Add tag to grocery
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-19 Wed 16:11
+:END:
+def add_tag_to_grocery
 
 * TODO Create frontend for showing all tags
 
