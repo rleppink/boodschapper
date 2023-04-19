@@ -54,19 +54,22 @@ defmodule Boodschapper.Groceries do
 
   @doc """
   Creates a grocery.
-
-  ## Examples
-
-      iex> create_grocery(%{field: value})
-      {:ok, %Grocery{}}
-
-      iex> create_grocery(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
   """
-  def create_grocery(attrs \\ %{}) do
+  def create_grocery(%{name: name, tags: tags_list}) do
+    tag_changesets = Enum.map(tags_list, fn tag -> Tag.changeset(%Tag{}, %{name: tag}) end)
+
+    # This isn't in a transaction and can fail, but it doesn't matter:
+    # - It's a small app
+    # - It's only a tag that would be inserted
+    tags =
+      tag_changesets
+      |> Enum.map(fn tag_changeset ->
+        {:ok, tag} = Repo.insert(tag_changeset, on_conflict: {:replace, [:updated_at]})
+        tag
+      end)
+
     %Grocery{}
-    |> Grocery.changeset(attrs)
+    |> Grocery.changeset(%{name: name, grocery_tags: tags})
     |> Repo.insert()
   end
 
