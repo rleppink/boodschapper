@@ -5,6 +5,9 @@ defmodule Boodschapper.Groceries.Tag do
   schema "tags" do
     field :name, :string
 
+    # Color as in Tailwind color. i.e. "red", "yellow", "green", etc.
+    field :color, :string
+
     many_to_many :grocery, Boodschapper.Groceries.Grocery,
       join_through: Boodschapper.Groceries.GroceriesTags
 
@@ -14,7 +17,7 @@ defmodule Boodschapper.Groceries.Tag do
   @doc false
   def changeset(tag, attrs) do
     tag
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :color])
+    |> validate_required([:name, :color])
   end
 end

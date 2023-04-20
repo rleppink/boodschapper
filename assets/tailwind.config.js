@@ -11,10 +11,15 @@ module.exports = {
     "../lib/*_web.ex",
     "../lib/*_web/**/*.*ex"
   ],
+  safelist: [
+    {
+      pattern: /(border|bg)-(red|orange|yellow|green|teal|blue|indigo|purple|pink|gray)-[0-9]{3}/,
+    },
+  ],
   theme: {
     extend: {
       colors: {
-        brand: "#FD4F00",
+        brand: "#FDF400",
       }
     },
   },

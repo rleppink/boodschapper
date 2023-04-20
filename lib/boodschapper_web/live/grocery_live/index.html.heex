@@ -7,7 +7,7 @@
   <div :for={{dom_id, tag} <- @streams.tags} id={dom_id}>
     <div
       class="py-2 flex flex-row justify-between items-center hover:cursor-pointer rounded-lg">
-      <span class="border rounded-full border-gray-500 bg-gray-100 px-2"><%= tag.name %></span>
+      <span class={"border rounded-full border-#{tag.color}-500 bg-#{tag.color}-100 px-2"}><%= tag.name %></span>
     </div>
   </div>
 </div>
