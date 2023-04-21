@@ -38,16 +38,13 @@
       <span class="text-lg"><%= grocery.name %></span>
 
 <div class="flex gap-4 items-center">
-
       <div class="flex gap-2">
-        <div class="border rounded-full border-yellow-500 bg-yellow-100 px-2">
-          <span class="hidden sm:block">Lidl</span>
-          <span class="block sm:hidden">L</span>
-        </div>
-        <div class="border rounded-full border-blue-500 bg-blue-100 px-2 truncate">
-          <span class="hidden sm:block">Albert Heijn</span>
-          <span class="block sm:hidden">AH</span>
-        </div>
+        <%= for tag <- grocery.grocery_tags do %>
+          <div class={"border rounded-full border-#{tag.color}-500 bg-#{tag.color}-100 px-2"}>
+            <span class="hidden sm:block"><%= tag.name %></span>
+            <span class="block sm:hidden"><%= tag.name |> String.first %> </span>
+          </div>
+        <% end %>
       </div>
 
       <div class="flex gap-2">

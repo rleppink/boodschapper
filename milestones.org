@@ -41,11 +41,17 @@ def add_tag_to_grocery
 :ARCHIVE_TIME: 2023-04-21 Fri 15:59
 :END:
 
-* TODO Show actual tags on groceries
 
-* TODO Show only selected tags
+** DONE Show actual tags on groceries
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-21 Fri 16:16
+:END:
+
+* TODO Filter grocery list to selected tags
 
 * TODO Create frontend for adding tags
-Can be done in a modal when clicking on the grocery
+Can be done in a modal when clicking on the grocery?
 
 * TODO Release v2 to fly.io
+
+* TODO Edit tags
