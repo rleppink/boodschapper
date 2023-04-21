@@ -3,13 +3,18 @@
   Boodschappen huize Leppink
 </.header>
 
-<div id="tags" phx-update="stream" class="flex flex-row flex-wrap justify-start gap-2 mb-4">
-  <div :for={{dom_id, tag} <- @streams.tags} id={dom_id}>
+<div id="tags" class="flex flex-row flex-wrap justify-start gap-2 mb-4">
+  <%= for tag <- @tags do %>
     <div
       class="py-2 flex flex-row justify-between items-center hover:cursor-pointer rounded-lg">
-      <span class={"border rounded-full border-#{tag.color}-500 bg-#{tag.color}-100 px-2"}><%= tag.name %></span>
+      <span class={"border rounded-full border-#{if tag.selected, do: tag.color, else: "gray"}-500
+                  bg-#{if tag.selected, do: tag.color, else: "gray"}-100
+                  px-2"}
+            phx-click="select_tag" phx-value-0={tag.name}>
+        <%= tag.name %>
+      </span>
     </div>
-  </div>
+  <% end %>
 </div>
 
 <div class="fixed bottom-4 inset-x-4 mx-auto sm:relative sm:bottom-auto sm:mb-4 sm:inset-auto">
@@ -23,7 +28,6 @@
      </form>
   </div>
 </div>
-
 
 <div id="groceries" phx-update="stream">
   <div :for={{dom_id, grocery} <- @streams.groceries} id={dom_id}>

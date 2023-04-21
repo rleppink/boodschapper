@@ -13,11 +13,11 @@ defmodule BoodschapperWeb.GroceryLive.Index do
      socket
      |> assign(:page_title, "🛒 Boodschappen")
      |> stream(:groceries, Groceries.list_groceries())
-     |> stream(:tags, Groceries.list_tags())}
+     |> assign(:tags, tags_with_selections())}
   end
 
   @impl true
-  def handle_params(params, _url, socket) do
+  def handle_params(_params, _url, socket) do
     {:noreply, socket}
   end
 
@@ -55,6 +55,18 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     save_grocery(socket, :new, args)
   end
 
+  @impl true
+  def handle_event("select_tag", %{"0" => name}, socket) do
+    updated_tags =
+      update_in(
+        socket.assigns.tags,
+        [Access.filter(fn tag -> tag.name == name end)],
+        fn tag -> Map.put(tag, :selected, !tag.selected) end
+      )
+
+    {:noreply, socket |> assign(:tags, updated_tags)}
+  end
+
   defp save_grocery(socket, :new, grocery_params) do
     {:ok, grocery} = Groceries.create_grocery(grocery_params)
 
@@ -70,5 +82,12 @@ defmodule BoodschapperWeb.GroceryLive.Index do
      socket
      |> stream_insert(:groceries, grocery)
      |> put_flash(:info, "#{grocery.name} is toegevoegd")}
+  end
+
+  defp tags_with_selections do
+    Groceries.list_tags()
+    |> Enum.map(fn tag ->
+      Map.put(tag, :selected, false)
+    end)
   end
 end

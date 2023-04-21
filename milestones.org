@@ -30,13 +30,22 @@ def add_tag_to_grocery
 :END:
 
 
-* TODO Implement tag colors in database
+** DONE Implement tag colors in database
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-20 Thu 13:30
+:END:
 
-* TODO Implement tag selection
+
+** DONE Implement tag selection
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-21 Fri 15:59
+:END:
+
+* TODO Show actual tags on groceries
+
+* TODO Show only selected tags
 
 * TODO Create frontend for adding tags
 Can be done in a modal when clicking on the grocery
-
-* TODO Show actual tags on groceries
 
 * TODO Release v2 to fly.io
