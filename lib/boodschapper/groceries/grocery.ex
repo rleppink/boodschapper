@@ -15,6 +15,7 @@ defmodule Boodschapper.Groceries.Grocery do
   def changeset(grocery, attrs) do
     grocery
     |> cast(attrs, [:name])
+    |> validate_required([:name])
     |> put_assoc(:grocery_tags, attrs[:grocery_tags])
   end
 end

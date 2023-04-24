@@ -56,7 +56,8 @@ defmodule Boodschapper.Groceries do
   Creates a grocery.
   """
   def create_grocery(%{"name" => name, "tags" => tags_list}) do
-    tag_changesets = Enum.map(tags_list, fn tag -> Tag.changeset(%Tag{}, %{name: tag}) end)
+    tag_changesets =
+      Enum.map(tags_list, fn tag -> Tag.changeset(%Tag{}, %{name: tag.name, color: tag.color}) end)
 
     # This isn't in a transaction and can fail, but it doesn't matter:
     # - It's only a tag that would be erroneously inserted

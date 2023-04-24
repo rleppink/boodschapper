@@ -53,7 +53,14 @@ def add_tag_to_grocery
 :END:
 With an empty tags list
 
-* TODO Add tags to a grocery
+** DONE Add tags to a grocery
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-24 Mon 12:24
+:END:
+Just the currently selected ones, as an experiment whether that's good UX
+
+
+* TODO Add tags by hashtag
 
 * TODO Create frontend for adding new tags
 Can be done in a modal when clicking on the grocery?
