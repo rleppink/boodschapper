@@ -47,11 +47,27 @@ def add_tag_to_grocery
 :ARCHIVE_TIME: 2023-04-21 Fri 16:16
 :END:
 
-* TODO Filter grocery list to selected tags
+** DONE Fix adding grocery
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-24 Mon 11:35
+:END:
+With an empty tags list
 
-* TODO Create frontend for adding tags
+* TODO Add tags to a grocery
+
+* TODO Create frontend for adding new tags
 Can be done in a modal when clicking on the grocery?
+
+* TODO Filter grocery list to selected tags
 
 * TODO Release v2 to fly.io
 
+* TODO Check off grocery
+
+* TODO Select new from historic tags
+
 * TODO Edit tags
+Edit color, name
+
+* TODO Tag icons?
+Store brand icons

@@ -22,7 +22,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   end
 
   @impl true
-  def handle_info({BoodschapperWeb.GroceryLive.FormComponent, {:saved, grocery}}, socket) do
+  def handle_info({_, :saved, grocery}, socket) do
     Phoenix.PubSub.broadcast(
       Boodschapper.PubSub,
       @topic,
@@ -68,7 +68,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   end
 
   defp save_grocery(socket, :new, grocery_params) do
-    {:ok, grocery} = Groceries.create_grocery(grocery_params)
+    {:ok, grocery} = Groceries.create_grocery(grocery_params |> Map.put("tags", []))
 
     Phoenix.PubSub.broadcast(
       Boodschapper.PubSub,
