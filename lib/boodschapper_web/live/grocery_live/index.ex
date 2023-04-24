@@ -53,7 +53,10 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   def handle_event("save", %{"name" => name} = _args, socket) do
     {name, hashtags} = remove_hashtags(name) |> IO.inspect(label: "hashtags")
 
-    save_grocery(socket, :new, %{"name" => name, "tags" => hashtags})
+    save_grocery(socket, :new, %{
+      "name" => name,
+      "tags" => hashtags |> Enum.map(fn x -> %{name: x, color: "green"} end)
+    })
   end
 
   defp remove_hashtags(input) do
@@ -94,6 +97,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     {:noreply,
      socket
      |> stream_insert(:groceries, grocery)
+     |> assign(:tags, tags_with_selections())
      |> put_flash(:info, "#{grocery.name} is toegevoegd")}
   end
 

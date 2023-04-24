@@ -60,7 +60,12 @@ With an empty tags list
 Just the currently selected ones, as an experiment whether that's good UX
 
 
-* TODO Add tags by hashtag
+** DONE Add tags by hashtag
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-24 Mon 12:28
+:END:
+
+* TODO Fix adding only tags
 
 * TODO Create frontend for adding new tags
 Can be done in a modal when clicking on the grocery?
