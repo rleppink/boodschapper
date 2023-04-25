@@ -51,7 +51,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
 
   @impl true
   def handle_event("save", %{"name" => name} = _args, socket) do
-    {name, hashtags} = remove_hashtags(name) |> IO.inspect(label: "hashtags")
+    {name, hashtags} = remove_hashtags(name)
 
     save_grocery(socket, :new, %{
       "name" => name,
