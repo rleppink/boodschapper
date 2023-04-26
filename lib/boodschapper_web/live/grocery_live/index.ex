@@ -24,12 +24,17 @@ defmodule BoodschapperWeb.GroceryLive.Index do
 
   @impl true
   def handle_info({_, :saved, grocery}, socket) do
-    {:noreply, stream_insert(socket, :groceries, grocery)}
+    {:noreply, assign(socket, :groceries, socket.assigns.groceries ++ [grocery])}
   end
 
   @impl true
   def handle_info({_, :deleted, grocery}, socket) do
-    {:noreply, stream_delete(socket, :groceries, grocery)}
+    {:noreply,
+     assign(
+       socket,
+       :groceries,
+       socket.assigns.groceries |> Enum.reject(fn x -> x.id == grocery.id end)
+     )}
   end
 
   def handle_info(:clear_flash, socket) do
@@ -106,7 +111,6 @@ defmodule BoodschapperWeb.GroceryLive.Index do
 
     {:noreply,
      socket
-     |> stream_insert(:groceries, grocery)
      |> assign(:tags, Groceries.list_tags())
      |> put_flash(:info, "#{grocery.name} is toegevoegd")}
   end
