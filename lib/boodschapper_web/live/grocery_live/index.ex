@@ -13,7 +13,8 @@ defmodule BoodschapperWeb.GroceryLive.Index do
      socket
      |> assign(:page_title, "🛒 Boodschappen")
      |> stream(:groceries, Groceries.list_groceries())
-     |> assign(:tags, tags_with_selections())}
+     |> assign(:tags, Groceries.list_tags())
+     |> assign(:selected_tags, MapSet.new())}
   end
 
   @impl true
@@ -59,6 +60,17 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     })
   end
 
+  @impl true
+  def handle_event("toggle_tag", %{"0" => name}, socket) do
+    updated_tags =
+      case socket.assigns.selected_tags |> MapSet.member?(name) do
+        true -> socket.assigns.selected_tags |> MapSet.delete(name)
+        false -> socket.assigns.selected_tags |> MapSet.put(name)
+      end
+
+    {:noreply, socket |> assign(:selected_tags, updated_tags)}
+  end
+
   defp remove_hashtags(input) do
     hashtag_pattern = ~r/#(\w+)\b/
     removed_hashtags = Regex.scan(hashtag_pattern, input) |> Enum.map(fn x -> x |> Enum.at(1) end)
@@ -67,23 +79,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     {cleaned_input, removed_hashtags}
   end
 
-  @impl true
-  def handle_event("select_tag", %{"0" => name}, socket) do
-    updated_tags =
-      update_in(
-        socket.assigns.tags,
-        [Access.filter(fn tag -> tag.name == name end)],
-        fn tag -> Map.put(tag, :selected, !tag.selected) end
-      )
-
-    {:noreply, socket |> assign(:tags, updated_tags)}
-  end
-
   defp save_grocery(socket, :new, grocery_params) do
-    selected_tags =
-      socket.assigns.tags
-      |> Enum.filter(& &1.selected)
-
     {:ok, grocery} = Groceries.create_grocery(grocery_params)
 
     Phoenix.PubSub.broadcast(
@@ -97,14 +93,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     {:noreply,
      socket
      |> stream_insert(:groceries, grocery)
-     |> assign(:tags, tags_with_selections())
+     |> assign(:tags, Groceries.list_tags())
      |> put_flash(:info, "#{grocery.name} is toegevoegd")}
-  end
-
-  defp tags_with_selections do
-    Groceries.list_tags()
-    |> Enum.map(fn tag ->
-      Map.put(tag, :selected, false)
-    end)
   end
 end

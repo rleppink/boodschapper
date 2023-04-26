@@ -3,14 +3,14 @@
   Boodschappen huize Leppink
 </.header>
 
-<div id="tags" class="flex flex-row flex-wrap justify-start gap-2 mb-4">
+<div id="tags" class="flex flex-row flex-wrap justify-start gap-2 mb-4 select-none">
   <%= for tag <- @tags do %>
     <div
       class="py-2 flex flex-row justify-between items-center hover:cursor-pointer rounded-lg">
-      <span class={"border rounded-full border-#{if tag.selected, do: tag.color, else: "gray"}-500
-                  bg-#{if tag.selected, do: tag.color, else: "gray"}-100
+      <span class={"border rounded-full border-#{if @selected_tags |> MapSet.member?(tag.name), do: tag.color, else: "gray"}-500
+                  bg-#{if @selected_tags |> MapSet.member?(tag.name), do: tag.color, else: "gray"}-100
                   px-2"}
-            phx-click="select_tag" phx-value-0={tag.name}>
+            phx-click="toggle_tag" phx-value-0={tag.name}>
         <%= tag.name %>
       </span>
     </div>
