@@ -77,7 +77,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
       if Enum.any?(updated_tags) do
         Groceries.list_groceries()
         |> Enum.filter(fn grocery ->
-          MapSet.subset?(
+          !MapSet.disjoint?(
             MapSet.new(grocery.grocery_tags |> Enum.map(fn x -> x.name end)),
             updated_tags
           )
