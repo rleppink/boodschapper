@@ -29,42 +29,42 @@
   </div>
 </div>
 
-<div id="groceries" phx-update="stream">
-  <div :for={{dom_id, grocery} <- @streams.groceries} id={dom_id}>
+<div id="groceries">
+  <%= for grocery <- @groceries do %>
     <div
       phx-click={JS.navigate(~p"/#{grocery}")}
       class="py-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg px-4">
       
       <span class="text-lg"><%= grocery.name %></span>
 
-<div class="flex gap-4 items-center">
-      <div class="flex gap-2">
-        <%= for tag <- grocery.grocery_tags do %>
-          <div class={"border rounded-full border-#{tag.color}-500 bg-#{tag.color}-100 px-2"}>
-            <span class="hidden sm:block"><%= tag.name %></span>
-            <span class="block sm:hidden"><%= tag.name |> String.first %> </span>
-          </div>
-        <% end %>
-      </div>
+      <div class="flex gap-4 items-center">
+        <div class="flex gap-2">
+          <%= for tag <- grocery.grocery_tags do %>
+            <div class={"border rounded-full border-#{tag.color}-500 bg-#{tag.color}-100 px-2"}>
+              <span class="hidden sm:block"><%= tag.name %></span>
+              <span class="block sm:hidden"><%= tag.name |> String.first %> </span>
+            </div>
+          <% end %>
+        </div>
 
-      <div class="flex gap-2">
-        <.link
+        <div class="flex gap-2">
+          <.link
           phx-click={JS.push("delete", value: %{id: grocery.id}) |> hide("##{grocery.id}")}
           class="border rounded-lg px-2 py-1"
           >
           <.icon name="hero-trash" class="h-5 w-5" />
-        </.link>
-        <.link phx-click="check"
-        class="border rounded-lg px-2 py-1"
-        >
+          </.link>
+          <.link phx-click="check"
+          class="border rounded-lg px-2 py-1"
+          >
           <.icon name="hero-check" class="h-5 w-5" />
-        </.link>
-      </div>
+          </.link>
+          </div>
 
-</div>
+        </div>
 
     </div>
-  </div>
+<% end %>
 </div>
 
 <.modal :if={@live_action in [:new, :edit]} id="grocery-modal" show on_cancel={JS.patch(~p"/")}>
@@ -77,4 +77,3 @@
     patch={~p"/"}
   />
 </.modal>
-

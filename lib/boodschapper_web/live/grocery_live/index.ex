@@ -12,7 +12,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     {:ok,
      socket
      |> assign(:page_title, "🛒 Boodschappen")
-     |> stream(:groceries, Groceries.list_groceries())
+     |> assign(:groceries, Groceries.list_groceries())
      |> assign(:tags, Groceries.list_tags())
      |> assign(:selected_tags, MapSet.new())}
   end
@@ -68,7 +68,21 @@ defmodule BoodschapperWeb.GroceryLive.Index do
         false -> socket.assigns.selected_tags |> MapSet.put(name)
       end
 
-    {:noreply, socket |> assign(:selected_tags, updated_tags)}
+    filtered_groceries =
+      if Enum.any?(updated_tags) do
+        Groceries.list_groceries()
+        |> Enum.filter(fn grocery ->
+          MapSet.subset?(
+            MapSet.new(grocery.grocery_tags |> Enum.map(fn x -> x.name end)),
+            updated_tags
+          )
+        end)
+      else
+        Groceries.list_groceries()
+      end
+
+    {:noreply,
+     socket |> assign(:selected_tags, updated_tags) |> assign(:groceries, filtered_groceries)}
   end
 
   defp remove_hashtags(input) do
