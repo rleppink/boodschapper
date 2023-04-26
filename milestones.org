@@ -65,14 +65,20 @@ Just the currently selected ones, as an experiment whether that's good UX
 :ARCHIVE_TIME: 2023-04-24 Mon 12:28
 :END:
 
-* TODO Filter grocery list to selected tags
+** DONE Filter grocery list to selected tags
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-26 Wed 14:23
+:END:
 
-* TODO Release v2 to fly.io
+** DONE Release v2 to fly.io
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-26 Wed 14:23
+:END:
+
+* TODO Check off grocery
 
 * TODO Create frontend for adding new tags to existing grocery
 Can be done in a modal when clicking on the grocery?
-
-* TODO Check off grocery
 
 * TODO Select new from historic tags
 
