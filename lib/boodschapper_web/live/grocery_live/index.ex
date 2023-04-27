@@ -31,6 +31,13 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   end
 
   @impl true
+  def handle_info({_, :checked_off}, socket) do
+    {:noreply,
+     socket
+     |> assign(:groceries, Groceries.list_groceries())}
+  end
+
+  @impl true
   def handle_info({_, :deleted, grocery}, socket) do
     {:noreply,
      assign(
@@ -62,6 +69,12 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   def handle_event("check", args, socket) do
     id_int = String.to_integer(args["0"])
     Groceries.check_off_grocery(id_int)
+
+    Phoenix.PubSub.broadcast(
+      Boodschapper.PubSub,
+      @topic,
+      {Boodschapper.PubSub, :checked_off}
+    )
 
     {:noreply, socket |> assign(:groceries, Groceries.list_groceries())}
   end
