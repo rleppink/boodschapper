@@ -76,9 +76,10 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   @impl true
   def handle_event("toggle_tag", %{"0" => name}, socket) do
     updated_tags =
-      case socket.assigns.selected_tags |> MapSet.member?(name) do
-        true -> socket.assigns.selected_tags |> MapSet.delete(name)
-        false -> socket.assigns.selected_tags |> MapSet.put(name)
+      if socket.assigns.selected_tags |> MapSet.member?(name) do
+        socket.assigns.selected_tags |> MapSet.delete(name)
+      else
+        socket.assigns.selected_tags |> MapSet.put(name)
       end
 
     filtered_groceries =
