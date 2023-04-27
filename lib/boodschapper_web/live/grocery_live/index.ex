@@ -57,9 +57,10 @@ defmodule BoodschapperWeb.GroceryLive.Index do
 
   @impl true
   def handle_event("check", args, socket) do
-    IO.inspect(args, label: "args")
+    id_int = String.to_integer(args["0"])
+    Groceries.check_off_grocery(id_int)
 
-    {:noreply, socket}
+    {:noreply, socket |> assign(:groceries, Groceries.list_groceries())}
   end
 
   @impl true

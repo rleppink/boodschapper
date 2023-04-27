@@ -84,10 +84,9 @@ defmodule Boodschapper.Groceries do
     |> Repo.update()
   end
 
-  def check_off_grocery(%Grocery{} = grocery) do
-    grocery
-    |> Grocery.changeset(%{checked_off: true})
-    |> Repo.update()
+  def check_off_grocery(grocery_id) do
+    grocery_query = from(g in Grocery, where: g.id == ^grocery_id)
+    {1, nil} = Repo.update_all(grocery_query, set: [checked_off: DateTime.utc_now()])
   end
 
   @doc """
