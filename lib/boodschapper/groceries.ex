@@ -84,6 +84,12 @@ defmodule Boodschapper.Groceries do
     |> Repo.update()
   end
 
+  def check_off_grocery(%Grocery{} = grocery) do
+    grocery
+    |> Grocery.changeset(%{checked_off: true})
+    |> Repo.update()
+  end
+
   @doc """
   Updates a grocery.
 

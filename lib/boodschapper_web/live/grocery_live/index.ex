@@ -56,6 +56,13 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   end
 
   @impl true
+  def handle_event("check", args, socket) do
+    IO.inspect(args, label: "args")
+
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_event("save", %{"name" => name} = _args, socket) do
     {name, hashtags} = remove_hashtags(name)
 

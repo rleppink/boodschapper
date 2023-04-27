@@ -4,6 +4,7 @@ defmodule Boodschapper.Groceries.Grocery do
 
   schema "groceries" do
     field :name, :string
+    field :checked_off, :utc_datetime
 
     many_to_many :grocery_tags, Boodschapper.Groceries.Tag,
       join_through: Boodschapper.Groceries.GroceriesTags

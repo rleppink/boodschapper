@@ -34,6 +34,10 @@
     <div
       phx-click={JS.navigate(~p"/#{grocery}")}
       class="py-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg px-4">
+
+      <%= if grocery.checked_off do %>
+        <.icon name="hero-check" class="h-5 w-5" />
+      <% end %>
       
       <span class="text-lg"><%= grocery.name %></span>
 
@@ -49,20 +53,15 @@
 
         <div class="flex gap-2">
           <.link
-          phx-click={JS.push("delete", value: %{id: grocery.id}) |> hide("##{grocery.id}")}
-          class="border rounded-lg px-2 py-1"
-          >
-          <.icon name="hero-trash" class="h-5 w-5" />
+              phx-click={JS.push("delete", value: %{id: grocery.id}) |> hide("##{grocery.id}")}
+              class="border rounded-lg px-2 py-1">
+              <.icon name="hero-trash" class="h-5 w-5" />
           </.link>
-          <.link phx-click="check"
-          class="border rounded-lg px-2 py-1"
-          >
-          <.icon name="hero-check" class="h-5 w-5" />
+          <.link phx-click="check" phx-value-0={grocery.id} class="border rounded-lg px-2 py-1">
+              <.icon name="hero-check" class="h-5 w-5" />
           </.link>
           </div>
-
         </div>
-
     </div>
 <% end %>
 </div>
