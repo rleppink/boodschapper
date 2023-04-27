@@ -24,7 +24,10 @@ defmodule BoodschapperWeb.GroceryLive.Index do
 
   @impl true
   def handle_info({_, :saved, grocery}, socket) do
-    {:noreply, assign(socket, :groceries, socket.assigns.groceries ++ [grocery])}
+    {:noreply,
+     socket
+     |> assign(:groceries, socket.assigns.groceries ++ [grocery])
+     |> assign(:tags, Groceries.list_tags())}
   end
 
   @impl true
@@ -120,7 +123,6 @@ defmodule BoodschapperWeb.GroceryLive.Index do
 
     {:noreply,
      socket
-     |> assign(:tags, Groceries.list_tags())
      |> put_flash(:info, "#{grocery.name} is toegevoegd")}
   end
 end
