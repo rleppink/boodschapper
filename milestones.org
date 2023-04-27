@@ -75,19 +75,27 @@ Just the currently selected ones, as an experiment whether that's good UX
 :ARCHIVE_TIME: 2023-04-26 Wed 14:23
 :END:
 
-* TODO Check off grocery
+** DONE Check off grocery
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-27 Thu 16:35
+:END:
+
+
+* TODO Filter selected tags in heex.html
+Selecting tags as filter, then adding an items resets the filter. this fixes
+that
+
+* TODO Select new from historic tags
 
 * TODO Create frontend for adding new tags to existing grocery
 Can be done in a modal when clicking on the grocery?
-
-* TODO Select new from historic tags
 
 * TODO Edit tags
 Edit color, name
 
 * TODO Tag icons?
-Store brand icons
+Store brand icons, that's visually neat, esp. on small screen
 
-* TODO Fix adding only tags
+* WAIT Fix adding only tags
 Do we want to add only tags? Is that ever necessary? If you need the tag, you
 need a grocery, right?
