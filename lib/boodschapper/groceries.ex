@@ -18,8 +18,11 @@ defmodule Boodschapper.Groceries do
       [%Grocery{}, ...]
 
   """
-  def list_groceries do
-    Repo.all(Grocery)
+  def list_groceries() do
+    grocery_query =
+      from g in Grocery, order_by: [asc: g.inserted_at], where: is_nil(g.checked_off)
+
+    Repo.all(grocery_query)
     |> Repo.preload(:grocery_tags)
   end
 
