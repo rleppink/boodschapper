@@ -23,10 +23,10 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   end
 
   @impl true
-  def handle_info({_, :saved, grocery}, socket) do
+  def handle_info({Boodschapper.PubSub, :saved}, socket) do
     {:noreply,
      socket
-     |> assign(:groceries, socket.assigns.groceries ++ [grocery])
+     |> assign(:groceries, Groceries.list_groceries())
      |> assign(:tags, Groceries.list_tags())}
   end
 
@@ -117,7 +117,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     Phoenix.PubSub.broadcast(
       Boodschapper.PubSub,
       @topic,
-      {Boodschapper.PubSub, :saved, grocery}
+      {Boodschapper.PubSub, :saved}
     )
 
     Process.send_after(self(), :clear_flash, 2000)

@@ -88,6 +88,11 @@ Just the currently selected ones, as an experiment whether that's good UX
 Selecting tags as filter, then adding an items resets the filter. this fixes
 that
 
+** DONE Fix green tag when adding an existing tag
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-28 Fri 11:29
+:END:
+
 * TODO Select new from historic groceries+tags
 
 * TODO Create frontend for adding new tags to existing grocery
