@@ -98,21 +98,9 @@ defmodule BoodschapperWeb.GroceryLive.Index do
         socket.assigns.selected_tags |> MapSet.put(name)
       end
 
-    filtered_groceries =
-      if Enum.any?(updated_tags) do
-        Groceries.list_groceries()
-        |> Enum.filter(fn grocery ->
-          !MapSet.disjoint?(
-            MapSet.new(grocery.grocery_tags |> Enum.map(fn x -> x.name end)),
-            updated_tags
-          )
-        end)
-      else
-        Groceries.list_groceries()
-      end
-
     {:noreply,
-     socket |> assign(:selected_tags, updated_tags) |> assign(:groceries, filtered_groceries)}
+     socket
+     |> assign(:selected_tags, updated_tags)}
   end
 
   defp remove_hashtags(input) do
@@ -137,5 +125,17 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     {:noreply,
      socket
      |> put_flash(:info, "#{grocery.name} is toegevoegd")}
+  end
+
+  defp filtered_groceries(groceries, %MapSet{map: map}) when map_size(map) == 0, do: groceries
+
+  defp filtered_groceries(groceries, selected_tags) do
+    groceries
+    |> Enum.filter(fn grocery ->
+      not MapSet.disjoint?(
+        MapSet.new(grocery.grocery_tags |> Enum.map(fn x -> x.name end)),
+        selected_tags
+      )
+    end)
   end
 end

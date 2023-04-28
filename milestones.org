@@ -81,17 +81,22 @@ Just the currently selected ones, as an experiment whether that's good UX
 :END:
 
 
-* TODO Filter selected tags in heex.html
+** DONE Filter selected tags in heex.html
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-28 Fri 11:24
+:END:
 Selecting tags as filter, then adding an items resets the filter. this fixes
 that
 
-* TODO Select new from historic tags
+* TODO Select new from historic groceries+tags
 
 * TODO Create frontend for adding new tags to existing grocery
 Can be done in a modal when clicking on the grocery?
 
 * TODO Edit tags
 Edit color, name
+
+* 🎉 VFirst!
 
 * TODO Tag icons?
 Store brand icons, that's visually neat, esp. on small screen

@@ -30,7 +30,7 @@
 </div>
 
 <div id="groceries">
-  <%= for grocery <- @groceries do %>
+  <%= for grocery <- @groceries |> filtered_groceries(@selected_tags) do %>
     <div
       phx-click={JS.navigate(~p"/#{grocery}")}
       class="py-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg px-4">
