@@ -81,12 +81,26 @@ defmodule BoodschapperWeb.GroceryLive.Index do
 
   @impl true
   def handle_event("save", %{"name" => name} = _args, socket) do
-    {name, hashtags} = remove_hashtags(name)
+    {:ok, grocery} =
+      Groceries.create_grocery(%{
+        "name" => name,
+        "tags" =>
+          socket.assigns.selected_tags
+          |> MapSet.to_list()
+          |> Enum.map(fn x -> %{name: x, color: "green"} end)
+      })
 
-    save_grocery(socket, :new, %{
-      "name" => name,
-      "tags" => hashtags |> Enum.map(fn x -> %{name: x, color: "green"} end)
-    })
+    Phoenix.PubSub.broadcast(
+      Boodschapper.PubSub,
+      @topic,
+      {Boodschapper.PubSub, :saved}
+    )
+
+    Process.send_after(self(), :clear_flash, 2000)
+
+    {:noreply,
+     socket
+     |> put_flash(:info, "#{grocery.name} is toegevoegd")}
   end
 
   @impl true
@@ -101,30 +115,6 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     {:noreply,
      socket
      |> assign(:selected_tags, updated_tags)}
-  end
-
-  defp remove_hashtags(input) do
-    hashtag_pattern = ~r/#(\w+)\b/
-    removed_hashtags = Regex.scan(hashtag_pattern, input) |> Enum.map(fn x -> x |> Enum.at(1) end)
-    cleaned_input = String.replace(input, hashtag_pattern, "") |> String.trim()
-
-    {cleaned_input, removed_hashtags}
-  end
-
-  defp save_grocery(socket, :new, grocery_params) do
-    {:ok, grocery} = Groceries.create_grocery(grocery_params)
-
-    Phoenix.PubSub.broadcast(
-      Boodschapper.PubSub,
-      @topic,
-      {Boodschapper.PubSub, :saved}
-    )
-
-    Process.send_after(self(), :clear_flash, 2000)
-
-    {:noreply,
-     socket
-     |> put_flash(:info, "#{grocery.name} is toegevoegd")}
   end
 
   defp filtered_groceries(groceries, %MapSet{map: map}) when map_size(map) == 0, do: groceries

@@ -93,6 +93,17 @@ that
 :ARCHIVE_TIME: 2023-04-28 Fri 11:29
 :END:
 
+* KILL Fix adding tags with spaces in them
+Proposed solution: anything that comes after a hashtag is part of the tag name,
+unless a new hash tag is present
+
+* DONE Remove hashtag tag selection
+At least for now, not clear enough how it should work yet
+
+* TODO Add tags by selection and then adding a new grocery
+
+* TODO Move tags below input
+
 * TODO Select new from historic groceries+tags
 
 * TODO Create frontend for adding new tags to existing grocery
