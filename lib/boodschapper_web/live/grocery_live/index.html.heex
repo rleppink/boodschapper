@@ -3,6 +3,18 @@
   Boodschappen huize Leppink
 </.header>
 
+<div class="fixed bottom-4 inset-x-4 mx-auto sm:relative sm:bottom-auto sm:mb-4 sm:inset-auto">
+  <div
+    class="bg-white border-2 rounded border-zinc-400
+           flex flex-row items-center
+           focus-within:ring focus-within:ring-offset-4">
+     <.icon name="hero-plus" class="h-5 w-5 ml-2" />
+     <form phx-submit="save" class="w-full">
+       <input autofocus name="name" type="text" class="w-full border-0 focus:ring-0" />
+     </form>
+  </div>
+</div>
+
 <div id="tags" class="flex flex-row flex-wrap justify-start gap-2 mb-4 select-none">
   <%= for tag <- @tags do %>
     <div
@@ -15,18 +27,6 @@
       </span>
     </div>
   <% end %>
-</div>
-
-<div class="fixed bottom-4 inset-x-4 mx-auto sm:relative sm:bottom-auto sm:mb-4 sm:inset-auto">
-  <div
-    class="bg-white border-2 rounded border-zinc-400
-           flex flex-row items-center
-           focus-within:ring focus-within:ring-offset-4">
-     <.icon name="hero-plus" class="h-5 w-5 ml-2" />
-     <form phx-submit="save" class="w-full">
-       <input autofocus name="name" type="text" class="w-full border-0 focus:ring-0" />
-     </form>
-  </div>
 </div>
 
 <div id="groceries">

@@ -93,16 +93,28 @@ that
 :ARCHIVE_TIME: 2023-04-28 Fri 11:29
 :END:
 
-* KILL Fix adding tags with spaces in them
+** KILL Fix adding tags with spaces in them
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-30 Sun 08:19
+:END:
 Proposed solution: anything that comes after a hashtag is part of the tag name,
 unless a new hash tag is present
 
-* DONE Remove hashtag tag selection
+** DONE Remove hashtag tag selection
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-30 Sun 08:19
+:END:
 At least for now, not clear enough how it should work yet
 
-* TODO Add tags by selection and then adding a new grocery
+** DONE Add tags by selection and then adding a new grocery
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-30 Sun 08:19
+:END:
 
-* TODO Move tags below input
+** DONE Move tags below input
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-04-30 Sun 08:20
+:END:
 
 * TODO Select new from historic groceries+tags
 
