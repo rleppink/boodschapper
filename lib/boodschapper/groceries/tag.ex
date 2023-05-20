@@ -8,9 +8,6 @@ defmodule Boodschapper.Groceries.Tag do
     # Color as in Tailwind color. i.e. "red", "yellow", "green", etc.
     field :color, :string
 
-    many_to_many :grocery, Boodschapper.Groceries.Grocery,
-      join_through: Boodschapper.Groceries.GroceriesTags
-
     timestamps()
   end
 
