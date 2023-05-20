@@ -20,10 +20,12 @@ defmodule Boodschapper.Groceries do
   """
   def list_groceries() do
     grocery_query =
-      from g in Grocery, order_by: [asc: g.inserted_at], where: is_nil(g.checked_off)
+      from g in Grocery,
+        order_by: [asc: g.inserted_at],
+        where: is_nil(g.checked_off)
 
     Repo.all(grocery_query)
-    |> Repo.preload(:grocery_tags)
+    |> Repo.preload(:tags)
   end
 
   @doc """
@@ -53,7 +55,7 @@ defmodule Boodschapper.Groceries do
       ** (Ecto.NoResultsError)
 
   """
-  def get_grocery!(id), do: Repo.get!(Grocery, id) |> Repo.preload(:grocery_tags)
+  def get_grocery!(id), do: Repo.get!(Grocery, id) |> Repo.preload(:tags)
 
   @doc """
   Creates a grocery.
@@ -73,17 +75,17 @@ defmodule Boodschapper.Groceries do
       end)
 
     %Grocery{}
-    |> Grocery.changeset(%{name: name, grocery_tags: tags})
+    |> Grocery.changeset(%{name: name, tags: tags})
     |> Repo.insert()
   end
 
-  def add_tag_to_grocery(%Grocery{grocery_tags: grocery_tags} = grocery, tag_name) do
+  def add_tag_to_grocery(%Grocery{tags: tags} = grocery, tag_name) do
     tag_changeset = Tag.changeset(%Tag{}, %{name: tag_name})
 
     {:ok, tag} = Repo.insert(tag_changeset, on_conflict: {:replace, [:updated_at]})
 
     grocery
-    |> Grocery.changeset(%{grocery_tags: [tag | grocery_tags]})
+    |> Grocery.changeset(%{tags: [tag | tags]})
     |> Repo.update()
   end
 

@@ -54,6 +54,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     grocery = Groceries.get_grocery!(id)
+
     {:ok, _} = Groceries.delete_grocery(grocery)
 
     Phoenix.PubSub.broadcast(
@@ -123,7 +124,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     groceries
     |> Enum.filter(fn grocery ->
       not MapSet.disjoint?(
-        MapSet.new(grocery.grocery_tags |> Enum.map(fn x -> x.name end)),
+        MapSet.new(grocery.tags |> Enum.map(fn x -> x.name end)),
         selected_tags
       )
     end)

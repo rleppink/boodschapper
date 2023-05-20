@@ -41,7 +41,7 @@
 
       <div class="flex gap-4 items-center">
         <div class="flex gap-2">
-          <%= for tag <- grocery.grocery_tags do %>
+          <%= for tag <- grocery.tags do %>
             <div class={"border rounded-full border-#{tag.color}-500 bg-#{tag.color}-100 px-2"}>
               <span class="hidden sm:block"><%= tag.name %></span>
               <span class="block sm:hidden"><%= tag.name |> String.first %> </span>
