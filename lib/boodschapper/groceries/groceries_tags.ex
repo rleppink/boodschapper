@@ -12,7 +12,7 @@ defmodule Boodschapper.Groceries.GroceriesTags do
   @doc false
   def changeset(groceries_tags, attrs) do
     groceries_tags
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:grocery_id, :tag_id])
+    |> validate_required([:grocery_id, :tag_id])
   end
 end
