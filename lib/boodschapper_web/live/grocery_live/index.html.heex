@@ -1,6 +1,5 @@
 <.header class="mx-auto w-max mb-4 flex flex-row">
-  <.icon name="hero-building-storefront" class="h-5 w-5 ml-2" />
-  Boodschappen huize Leppink
+  🛒 Boodschappen huize Leppink
 </.header>
 
 <div class="fixed bottom-4 inset-x-4 mx-auto sm:relative sm:bottom-auto sm:mb-4 sm:inset-auto">
@@ -33,7 +32,7 @@
   <%= for grocery <- @groceries |> filtered_groceries(@selected_tags) do %>
     <div
       phx-click={JS.navigate(~p"/#{grocery}")}
-      class="py-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg px-4">
+      class="py-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg">
 
       <span class="text-lg flex gap-4 items-center">
         <%= grocery.name %>
