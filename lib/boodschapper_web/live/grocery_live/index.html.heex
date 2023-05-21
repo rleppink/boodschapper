@@ -1,10 +1,10 @@
-<.header class="mx-auto w-max mb-4 flex flex-row">
+<.header class="w-max mb-4 flex flex-row">
   🛒 Boodschappen huize Leppink
 </.header>
 
 <div class="fixed bottom-4 inset-x-4 mx-auto sm:relative sm:bottom-auto sm:mb-4 sm:inset-auto">
   <div
-    class="bg-white border-2 rounded border-zinc-400
+    class="bg-white border rounded border-zinc-400
            flex flex-row items-center
            focus-within:ring focus-within:ring-offset-4">
      <.icon name="hero-plus" class="h-5 w-5 ml-2" />
@@ -14,10 +14,9 @@
   </div>
 </div>
 
-<div id="tags" class="flex flex-row flex-wrap justify-start gap-2 mb-4 select-none">
+<div id="tags" class="flex flex-row flex-wrap justify-start mb-4 gap-2 select-none">
   <%= for tag <- @tags do %>
-    <div
-      class="py-2 flex flex-row justify-between items-center hover:cursor-pointer rounded-lg">
+    <div class="flex flex-row justify-between items-center cursor-pointer rounded-lg">
       <span class={"px-2 border rounded-full
                     border-#{if @selected_tags |> MapSet.member?(tag.name), do: tag.color, else: "gray"}-500
                     bg-#{if @selected_tags |> MapSet.member?(tag.name), do: tag.color, else: "gray"}-100"}
@@ -40,12 +39,12 @@
       phx-click={JS.navigate(~p"/#{grocery}")}
       class="py-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg">
 
-      <span class="text-lg flex gap-4 items-center">
+      <span class="text-lg flex gap-4 items-center pr-4">
         <%= grocery.name %>
       </span>
 
       <div class="flex gap-4 items-center">
-        <div class="flex gap-2">
+        <div class="flex gap-2 flex-wrap">
           <%= for tag <- grocery.tags do %>
             <div class={"border rounded-full border-#{tag.color}-500 bg-#{tag.color}-100 px-2"}>
               <span class="hidden sm:block"><%= tag.name %></span>
