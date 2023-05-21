@@ -26,6 +26,12 @@
       </span>
     </div>
   <% end %>
+  <div class="flex flex-row justify-between items-center hover:cursor-pointer rounded-lg cursor-pointer"
+       phx-click={show_modal("add_tag_modal")}>
+    <span class="border rounded-full border-black px-2">
+      <.icon name="hero-plus-mini" />
+    </span>
+  </div>
 </div>
 
 <div id="groceries">
@@ -66,13 +72,14 @@
 <% end %>
 </div>
 
-<.modal :if={@live_action in [:new, :edit]} id="grocery-modal" show on_cancel={JS.patch(~p"/")}>
-  <.live_component
-    module={BoodschapperWeb.GroceryLive.FormComponent}
-    id={@grocery.id || :new}
-    title={@page_title}
-    action={@live_action}
-    grocery={@grocery}
-    patch={~p"/"}
-  />
+<.modal id="add_tag_modal" >
+  <div class="flex flex-col gap-4">
+    <h1 class="text-lg font-semibold leading-8">Winkel toevoegen</h1>
+    <div class="border rounded focus-within:ring focus-within:ring-offset-4">
+      <form phx-submit={JS.push("add_tag") |> hide_modal("add_tag_modal")} class="w-full">
+        <input autofocus name="tag_name" type="text"
+              class="w-full border-0 rounded" />
+      </form>
+    </div>
+  </div>
 </.modal>

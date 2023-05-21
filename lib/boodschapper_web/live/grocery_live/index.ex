@@ -118,6 +118,13 @@ defmodule BoodschapperWeb.GroceryLive.Index do
      |> assign(:selected_tags, updated_tags)}
   end
 
+  @impl true
+  def handle_event("add_tag", %{"tag_name" => tag_name}, socket) do
+    {:ok, _} = Groceries.create_tag(tag_name, "green")
+
+    {:noreply, socket |> assign(:tags, Groceries.list_tags())}
+  end
+
   defp filtered_groceries(groceries, %MapSet{map: map}) when map_size(map) == 0, do: groceries
 
   defp filtered_groceries(groceries, selected_tags) do

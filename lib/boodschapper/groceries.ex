@@ -79,6 +79,11 @@ defmodule Boodschapper.Groceries do
     |> Repo.insert()
   end
 
+  def create_tag(name, color) do
+    Tag.changeset(%Tag{}, %{name: name, color: color})
+    |> Repo.insert(on_conflict: {:replace, [:updated_at]})
+  end
+
   def add_tag_to_grocery(%Grocery{tags: tags} = grocery, tag_name) do
     tag_changeset = Tag.changeset(%Tag{}, %{name: tag_name})
 
