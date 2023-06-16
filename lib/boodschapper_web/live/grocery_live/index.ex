@@ -14,7 +14,8 @@ defmodule BoodschapperWeb.GroceryLive.Index do
      |> assign(:page_title, "🛒 Boodschappen")
      |> assign(:groceries, Groceries.list_groceries())
      |> assign(:tags, Groceries.list_tags())
-     |> assign(:selected_tags, MapSet.new())}
+     |> assign(:selected_tags, MapSet.new())
+     |> assign(:suggestions, [])}
   end
 
   @impl true
@@ -64,6 +65,17 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     )
 
     {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("get_suggestions", %{"name" => ""} = _args, socket) do
+    {:noreply, socket |> assign(:suggestions, [])}
+  end
+
+  @impl true
+  def handle_event("get_suggestions", %{"name" => name} = _args, socket) do
+    suggestions = Groceries.suggest_groceries(name) |> IO.inspect(label: "suggestions")
+    {:noreply, socket |> assign(:suggestions, suggestions)}
   end
 
   @impl true

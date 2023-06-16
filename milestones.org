@@ -123,11 +123,18 @@ At least for now, not clear enough how it should work yet
 :END:
 
 * TODO Select new from historic groceries+tags
+Proof of concept works, not whole page is rerendered
+
+** DONE Rename to suggestions
+
+** DONE First PoC non-clickable suggestions
 
 * TODO Create frontend for adding new tags to existing grocery
 Can be done in a modal when clicking on the grocery?
 
 * 🎉 VFirst!
+
+* TODO Why is input box re-rendered on selecting a tag?
 
 * TODO Add tag color select
 
@@ -136,6 +143,9 @@ Edit color, name
 
 * TODO Tag icons?
 Store brand icons, that's visually neat, esp. on small screen
+
+* TODO Move flash to top right?
+So that it doesn't overlay stuff, absolute position
 
 * WAIT Fix adding only tags
 Do we want to add only tags? Is that ever necessary? If you need the tag, you
