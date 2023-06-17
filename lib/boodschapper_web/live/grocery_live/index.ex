@@ -76,7 +76,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
 
   @impl true
   def handle_event("get_suggestions", %{"name" => name} = _args, socket) do
-    suggestions = Groceries.suggest_groceries(name) |> IO.inspect(label: "suggestions")
+    suggestions = Groceries.suggest_groceries(name)
     {:noreply, socket |> assign(:suggestions, suggestions)}
   end
 
@@ -92,6 +92,14 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     )
 
     {:noreply, socket |> assign(:groceries, Groceries.list_groceries())}
+  end
+
+  @impl true
+  def handle_event("save_suggestion", %{"name" => name, "tag_ids" => tag_ids}, socket) do
+    Groceries.add_suggestion(name, tag_ids |> Jason.decode!())
+
+    {:noreply,
+     socket |> assign(:suggestions, []) |> assign(:groceries, Groceries.list_groceries())}
   end
 
   @impl true

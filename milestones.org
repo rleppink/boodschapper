@@ -133,6 +133,19 @@ Proof of concept works, not whole page is rerendered
 
 ** DONE Show tags on suggestions
 
+** DONE Make suggestions clickable
+
+*** DONE On click, save new grocery
+
+**** DONE How to send a list of tags with the click function?
+Map to IDs, jason encode, jason decode
+
+*** DONE Clear input field on saving new grocery
+
+** DONE Save suggested grocery
+
+** TODO Remove duplicates
+
 * TODO Create frontend for adding new tags to existing grocery
 Can be done in a modal when clicking on the grocery?
 
@@ -144,6 +157,8 @@ Can be done in a modal when clicking on the grocery?
 
 * TODO Edit tags
 Edit color, name
+
+* TODO Add delete button to historic/suggestions
 
 * TODO Tag icons?
 Store brand icons, that's visually neat, esp. on small screen

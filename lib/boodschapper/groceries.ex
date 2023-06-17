@@ -150,4 +150,16 @@ defmodule Boodschapper.Groceries do
     query = from g in Grocery, where: like(g.name, ^"%#{input}%") and g.checked_off, limit: 5
     Repo.all(query) |> Repo.preload(:tags)
   end
+
+  def add_suggestion(name, tag_ids) do
+    tag_changesets =
+      tag_ids
+      |> Enum.map(fn tag_id ->
+        Repo.get(Tag, tag_id) |> IO.inspect(label: "here")
+      end)
+
+    %Grocery{}
+    |> Grocery.changeset(%{name: name, tags: tag_changesets})
+    |> Repo.insert()
+  end
 end

@@ -38,7 +38,10 @@
   <%= if Enum.any?(@suggestions) do %>
     <div id="suggestions" class="border-x border-b rounded-b border-zinc-400 z-10 absolute w-full bg-white">
       <%= for suggestion <- @suggestions do %>
-        <div class="mx-4 my-2 flex flex-row justify-between">
+        <div class="mx-4 my-2 flex flex-row justify-between"
+             phx-click="save_suggestion"
+             phx-value-name={suggestion.name}
+             phx-value-tag_ids={suggestion.tags |> Enum.map(& &1.id) |> Jason.encode!} >
           <span><%= suggestion.name %></span>
 
           <div>
