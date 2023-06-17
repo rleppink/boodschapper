@@ -38,8 +38,14 @@
   <%= if Enum.any?(@suggestions) do %>
     <div id="suggestions" class="border-x border-b rounded-b border-zinc-400 z-10 absolute w-full bg-white">
       <%= for suggestion <- @suggestions do %>
-        <div class="mx-4 my-2">
-          <%= suggestion.name %>
+        <div class="mx-4 my-2 flex flex-row justify-between">
+          <span><%= suggestion.name %></span>
+
+          <div>
+            <%= for tag <- suggestion.tags do %>
+              <.tag name={tag.name} color={tag.color} />
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>
