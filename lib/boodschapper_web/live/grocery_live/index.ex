@@ -1,6 +1,8 @@
 defmodule BoodschapperWeb.GroceryLive.Index do
   use BoodschapperWeb, :live_view
 
+  import BoodschapperWeb.MyComponents
+
   alias Boodschapper.Groceries
 
   @topic inspect(__MODULE__)

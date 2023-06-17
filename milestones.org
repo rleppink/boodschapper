@@ -129,6 +129,10 @@ Proof of concept works, not whole page is rerendered
 
 ** DONE First PoC non-clickable suggestions
 
+** DONE Move tags to component
+
+** TODO Show tags on suggestions
+
 * TODO Create frontend for adding new tags to existing grocery
 Can be done in a modal when clicking on the grocery?
 

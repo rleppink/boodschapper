@@ -5,12 +5,11 @@
 <div id="tags" class="flex flex-row flex-wrap justify-start mb-4 gap-2 select-none">
   <%= for tag <- @tags do %>
     <div class="flex flex-row justify-between items-center cursor-pointer rounded-lg">
-      <span class={"px-2 border rounded-full
-                    border-#{if @selected_tags |> MapSet.member?(tag.name), do: tag.color, else: "gray"}-500
-                    bg-#{if @selected_tags |> MapSet.member?(tag.name), do: tag.color, else: "gray"}-100"}
-            phx-click="toggle_tag" phx-value-0={tag.name}>
-        <%= tag.name %>
-      </span>
+      <.tag
+          color={if @selected_tags |> MapSet.member?(tag.name), do: tag.color, else: "gray"}
+          name={tag.name}
+          phx-click="toggle_tag"
+          phx-value-0={tag.name} />
     </div>
   <% end %>
   <div class="flex flex-row justify-between items-center hover:cursor-pointer rounded-lg cursor-pointer"
@@ -21,7 +20,7 @@
   </div>
 </div>
 
-<div class="fixed bottom-4 inset-x-4 mx-auto sm:relative sm:bottom-auto sm:inset-auto">
+<div class="my-4 relative">
   <div
     class="bg-white border rounded border-zinc-400
            flex flex-row items-center
@@ -50,7 +49,6 @@
 <div id="groceries">
   <%= for grocery <- @groceries |> filtered_groceries(@selected_tags) do %>
     <div
-      phx-click={JS.navigate(~p"/#{grocery}")}
       class="py-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg">
 
       <span class="text-lg flex gap-4 items-center pr-4">
@@ -60,10 +58,7 @@
       <div class="flex gap-4 items-center">
         <div class="flex gap-2 flex-wrap">
           <%= for tag <- grocery.tags do %>
-            <div class={"border rounded-full border-#{tag.color}-500 bg-#{tag.color}-100 px-2"}>
-              <span class="hidden sm:block"><%= tag.name %></span>
-              <span class="block sm:hidden"><%= tag.name |> String.first %> </span>
-            </div>
+            <.tag name={tag.name} color={tag.color} />
           <% end %>
         </div>
 
