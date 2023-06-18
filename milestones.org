@@ -170,7 +170,21 @@ Can be done in a modal when clicking on the grocery?
 
 * 🎉 VFirst!
 
+** DONE Fix production migrations
+Not really fixed, just recreated...
+
 * TODO Why is input box re-rendered on selecting a tag?
+
+* TODO Authentication
+Currently the site is open to anyone, block it off so we need at least a
+password.
+
+* TODO Backups
+Fly.io volumes are not backed up, suggested is to use 2 at least. Research
+backup solutions.
+
+- To Hetzner?
+- To second Fly.io volume?
 
 * TODO Improve suggestions
 - Show much used suggestions first

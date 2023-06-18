@@ -9,14 +9,14 @@ processes = []
 [env]
   PHX_HOST = "boodschapper.fly.dev"
   PORT = "8080"
-  DATABASE_PATH = "/mnt/boodschapper_data/boodschapper_data.db"
+  DATABASE_PATH = "/data/boodschapper.db"
 
 [experimental]
   auto_rollback = true
 
 [mounts]
   source = "boodschapper_data"
-  destination = "/mnt/boodschapper_data"
+  destination = "/data"
 
 [[services]]
   http_checks = []

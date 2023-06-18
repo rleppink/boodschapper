@@ -108,6 +108,7 @@
             color={
               if Enum.any?(grocery.tags, &(&1.name == tag.name)), do: tag.color, else: "gray"
             }
+            class="cursor-pointer"
             phx-click="toggle_grocery_tag"
             phx-value-grocery_id={grocery.id}
             phx-value-tag_id={tag.id}
