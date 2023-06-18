@@ -122,29 +122,38 @@ At least for now, not clear enough how it should work yet
 :ARCHIVE_TIME: 2023-05-21 Sun 11:58
 :END:
 
-* TODO Select new from historic groceries+tags
+** DONE Select new from historic groceries+tags
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-06-18 Sun 10:00
+:END:
 Proof of concept works, not whole page is rerendered
 
-** DONE Rename to suggestions
+*** DONE Rename to suggestions
 
-** DONE First PoC non-clickable suggestions
+*** DONE First PoC non-clickable suggestions
 
-** DONE Move tags to component
+*** DONE Move tags to component
 
-** DONE Show tags on suggestions
+*** DONE Show tags on suggestions
 
-** DONE Make suggestions clickable
+*** DONE Make suggestions clickable
 
-*** DONE On click, save new grocery
+**** DONE On click, save new grocery
 
-**** DONE How to send a list of tags with the click function?
+***** DONE How to send a list of tags with the click function?
 Map to IDs, jason encode, jason decode
 
-*** DONE Clear input field on saving new grocery
+**** DONE Clear input field on saving new grocery
 
-** DONE Save suggested grocery
+*** DONE Save suggested grocery
 
-** TODO Remove duplicates
+*** DONE Remove duplicates
+- State "DONE"       from "TODO"       [2023-06-17 Sat 18:59] \\
+  Implemented on the Elixir side, couldn't get Ecto+Sqlite DISTINCT to work --
+  even with one column. Don't care to find out why for this app.
+
+*** DONE Add hover styling/clicking things
+
 
 * TODO Create frontend for adding new tags to existing grocery
 Can be done in a modal when clicking on the grocery?

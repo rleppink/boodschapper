@@ -147,8 +147,17 @@ defmodule Boodschapper.Groceries do
   end
 
   def suggest_groceries(input) do
-    query = from g in Grocery, where: like(g.name, ^"%#{input}%") and g.checked_off, limit: 5
-    Repo.all(query) |> Repo.preload(:tags)
+    query =
+      from g in Grocery,
+        where: like(g.name, ^"%#{input}%") and g.checked_off,
+        limit: 5
+
+    Repo.all(query)
+    |> Repo.preload(:tags)
+    |> Enum.uniq_by(fn x ->
+      # Apparently, ecto+sqlite doesn't support DISTINCT
+      {x.name, x.tags}
+    end)
   end
 
   def add_suggestion(name, tag_ids) do
