@@ -141,6 +141,16 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   end
 
   @impl true
+  def handle_event(
+        "toggle_grocery_tag",
+        %{"grocery-id" => grocery_id, "tag-id" => tag_id},
+        socket
+      ) do
+    Groceries.toggle_grocery_tag(grocery_id |> String.to_integer(), tag_id |> String.to_integer())
+    {:noreply, socket |> assign(:groceries, Groceries.list_groceries())}
+  end
+
+  @impl true
   def handle_event("add_tag", %{"tag_name" => tag_name}, socket) do
     {:ok, _} = Groceries.create_tag(tag_name, "green")
 

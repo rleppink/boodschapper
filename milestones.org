@@ -155,10 +155,18 @@ Map to IDs, jason encode, jason decode
 *** DONE Add hover styling/clicking things
 
 
-* TODO Create frontend for adding new tags to existing grocery
+** DONE Create frontend for adding new tags to existing grocery
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-06-18 Sun 12:56
+:END:
 Can be done in a modal when clicking on the grocery?
 
-** DONE Add modal to show the clicked grocery
+*** DONE Add modal to show the clicked grocery
+
+*** DONE Make tags clickable
+
+*** DONE Toggle tag on click
+
 
 * 🎉 VFirst!
 

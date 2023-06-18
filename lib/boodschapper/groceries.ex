@@ -8,6 +8,7 @@ defmodule Boodschapper.Groceries do
 
   alias Boodschapper.Groceries.Grocery
   alias Boodschapper.Groceries.Tag
+  alias Boodschapper.Groceries.GroceriesTags
 
   @doc """
   Returns the list of groceries.
@@ -170,5 +171,15 @@ defmodule Boodschapper.Groceries do
     %Grocery{}
     |> Grocery.changeset(%{name: name, tags: tag_changesets})
     |> Repo.insert()
+  end
+
+  def toggle_grocery_tag(grocery_id, tag_id) do
+    query = from gt in GroceriesTags, where: gt.grocery_id == ^grocery_id and gt.tag_id == ^tag_id
+
+    if Repo.aggregate(query, :count) >= 1 do
+      Repo.delete_all(query)
+    else
+      Repo.insert(%GroceriesTags{grocery_id: grocery_id, tag_id: tag_id})
+    end
   end
 end

@@ -98,7 +98,7 @@
 
     <.modal id={"edit-grocery-modal-#{grocery.id}"}>
       <h1 class="text-lg font-semibold leading-8 flex flex-row gap-2 items-center mb-4">
-        <.icon name="hero-pencil" class="h-5 w-5" />
+        <.icon name="hero-tag" class="h-5 w-5" />
         <%= grocery.name %>
       </h1>
       <div class="flex gap-2 flex-wrap">
@@ -108,6 +108,9 @@
             color={
               if Enum.any?(grocery.tags, &(&1.name == tag.name)), do: tag.color, else: "gray"
             }
+            phx-click="toggle_grocery_tag"
+            phx-value-grocery_id={grocery.id}
+            phx-value-tag_id={tag.id}
           />
         <% end %>
       </div>
