@@ -158,9 +158,16 @@ Map to IDs, jason encode, jason decode
 * TODO Create frontend for adding new tags to existing grocery
 Can be done in a modal when clicking on the grocery?
 
+** DONE Add modal to show the clicked grocery
+
 * 🎉 VFirst!
 
 * TODO Why is input box re-rendered on selecting a tag?
+
+* TODO Improve suggestions
+- Show much used suggestions first
+- Match start of suggestion first
+- ...
 
 * TODO Add tag color select
 

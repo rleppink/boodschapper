@@ -6,14 +6,17 @@
   <%= for tag <- @tags do %>
     <div class="flex flex-row justify-between items-center cursor-pointer rounded-lg">
       <.tag
-          color={if @selected_tags |> MapSet.member?(tag.name), do: tag.color, else: "gray"}
-          name={tag.name}
-          phx-click="toggle_tag"
-          phx-value-0={tag.name} />
+        color={if @selected_tags |> MapSet.member?(tag.name), do: tag.color, else: "gray"}
+        name={tag.name}
+        phx-click="toggle_tag"
+        phx-value-0={tag.name}
+      />
     </div>
   <% end %>
-  <div class="flex flex-row justify-between items-center hover:cursor-pointer rounded-lg cursor-pointer"
-       phx-click={show_modal("add_tag_modal")}>
+  <div
+    class="flex flex-row justify-between items-center hover:cursor-pointer rounded-lg cursor-pointer"
+    phx-click={show_modal("add_tag_modal")}
+  >
     <span class="border rounded-full border-black px-2">
       <.icon name="hero-plus-mini" />
     </span>
@@ -21,27 +24,34 @@
 </div>
 
 <div class="my-4 relative">
-  <div
-    class="bg-white border rounded border-zinc-400
+  <div class="bg-white border rounded border-zinc-400
            flex flex-row items-center
            focus-within:ring focus-within:ring-offset-4">
-     <.icon name="hero-plus" class="h-5 w-5 ml-2" />
-     <form phx-submit="save" class="w-full">
-       <input autofocus
-              autocomplete="off"
-              phx-change="get_suggestions"
-              name="name" type="text"
-              class="w-full border-0 focus:ring-0" />
-     </form>
+    <.icon name="hero-plus" class="h-5 w-5 ml-2" />
+    <form phx-submit="save" class="w-full">
+      <input
+        autofocus
+        autocomplete="off"
+        phx-change="get_suggestions"
+        name="name"
+        type="text"
+        class="w-full border-0 focus:ring-0"
+      />
+    </form>
   </div>
 
   <%= if Enum.any?(@suggestions) do %>
-    <div id="suggestions" class="border-x border-b rounded-b border-zinc-400 z-10 absolute w-full bg-white">
+    <div
+      id="suggestions"
+      class="border-x border-b rounded-b border-zinc-400 z-10 absolute w-full bg-white"
+    >
       <%= for suggestion <- @suggestions do %>
-        <div class="px-4 py-2 flex flex-row justify-between hover:cursor-pointer hover:bg-zinc-50 rounded-lg"
-             phx-click="save_suggestion"
-             phx-value-name={suggestion.name}
-             phx-value-tag_ids={suggestion.tags |> Enum.map(& &1.id) |> Jason.encode!} >
+        <div
+          class="px-4 py-2 flex flex-row justify-between hover:cursor-pointer hover:bg-zinc-50 rounded-lg"
+          phx-click="save_suggestion"
+          phx-value-name={suggestion.name}
+          phx-value-tag_ids={suggestion.tags |> Enum.map(& &1.id) |> Jason.encode!()}
+        >
           <span><%= suggestion.name %></span>
 
           <div class="flex gap-2">
@@ -58,8 +68,9 @@
 <div id="groceries">
   <%= for grocery <- @groceries |> filtered_groceries(@selected_tags) do %>
     <div
-      class="py-2 px-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg">
-
+      class="py-2 px-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg"
+      phx-click={show_modal("edit-grocery-modal-#{grocery.id}")}
+    >
       <span class="text-lg flex gap-4 items-center pr-4">
         <%= grocery.name %>
       </span>
@@ -73,29 +84,43 @@
 
         <div class="flex gap-2">
           <.link
-              phx-click={JS.push("delete", value: %{id: grocery.id}) |> hide("##{grocery.id}")}
-              class="border rounded-lg px-2 py-1">
-              <.icon name="hero-trash" class="h-5 w-5" />
+            phx-click={JS.push("delete", value: %{id: grocery.id}) |> hide("##{grocery.id}")}
+            class="border rounded-lg px-2 py-1"
+          >
+            <.icon name="hero-trash" class="h-5 w-5" />
           </.link>
-          <.link
-              phx-click="check"
-              phx-value-0={grocery.id}
-              class="border rounded-lg px-2 py-1">
-              <.icon name="hero-check" class="h-5 w-5" />
+          <.link phx-click="check" phx-value-0={grocery.id} class="border rounded-lg px-2 py-1">
+            <.icon name="hero-check" class="h-5 w-5" />
           </.link>
-          </div>
         </div>
+      </div>
     </div>
-<% end %>
+
+    <.modal id={"edit-grocery-modal-#{grocery.id}"}>
+      <h1 class="text-lg font-semibold leading-8 flex flex-row gap-2 items-center mb-4">
+        <.icon name="hero-pencil" class="h-5 w-5" />
+        <%= grocery.name %>
+      </h1>
+      <div class="flex gap-2 flex-wrap">
+        <%= for tag <- @tags do %>
+          <.tag
+            name={tag.name}
+            color={
+              if Enum.any?(grocery.tags, &(&1.name == tag.name)), do: tag.color, else: "gray"
+            }
+          />
+        <% end %>
+      </div>
+    </.modal>
+  <% end %>
 </div>
 
-<.modal id="add_tag_modal" >
+<.modal id="add_tag_modal">
   <div class="flex flex-col gap-4">
     <h1 class="text-lg font-semibold leading-8">Winkel toevoegen</h1>
     <div class="border rounded focus-within:ring focus-within:ring-offset-4">
       <form phx-submit={JS.push("add_tag") |> hide_modal("add_tag_modal")} class="w-full">
-        <input autofocus name="tag_name" type="text"
-              class="w-full border-0 rounded" />
+        <input autofocus name="tag_name" type="text" class="w-full border-0 rounded" />
       </form>
     </div>
   </div>
