@@ -9,8 +9,9 @@ defmodule BoodschapperWeb.MyComponents do
     ~H"""
     <span
       class={"px-2 border rounded-full
-                    border-#{@color}-500
-                    bg-#{@color}-100"}
+              whitespace-nowrap
+              border-#{@color}-500
+              bg-#{@color}-100"}
       {@rest}
     >
       <%= @name %>
