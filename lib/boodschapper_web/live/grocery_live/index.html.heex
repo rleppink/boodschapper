@@ -105,16 +105,17 @@
       </h1>
       <div class="flex gap-2 flex-wrap">
         <%= for tag <- @tags do %>
-          <.tag
-            name={tag.name}
-            color={
-              if Enum.any?(grocery.tags, &(&1.name == tag.name)), do: tag.color, else: "gray"
-            }
-            class="cursor-pointer"
-            phx-click="toggle_grocery_tag"
-            phx-value-grocery_id={grocery.id}
-            phx-value-tag_id={tag.id}
-          />
+          <div class="cursor-pointer">
+            <.tag
+              name={tag.name}
+              color={
+                if Enum.any?(grocery.tags, &(&1.name == tag.name)), do: tag.color, else: "gray"
+              }
+              phx-click="toggle_grocery_tag"
+              phx-value-grocery_id={grocery.id}
+              phx-value-tag_id={tag.id}
+            />
+          </div>
         <% end %>
       </div>
     </.modal>
