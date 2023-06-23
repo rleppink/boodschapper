@@ -7,6 +7,20 @@ defmodule BoodschapperWeb.GroceryLive.Index do
 
   @topic inspect(__MODULE__)
 
+  # This is not the right place, and doubly defined (also in tailwind.config.js)
+  @colors [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "teal",
+    "blue",
+    "indigo",
+    "purple",
+    "pink",
+    "gray"
+  ]
+
   @impl true
   def mount(_params, _session, socket) do
     Phoenix.PubSub.subscribe(Boodschapper.PubSub, @topic)
@@ -17,7 +31,8 @@ defmodule BoodschapperWeb.GroceryLive.Index do
      |> assign(:groceries, Groceries.list_groceries())
      |> assign(:tags, Groceries.list_tags())
      |> assign(:selected_tags, MapSet.new())
-     |> assign(:suggestions, [])}
+     |> assign(:suggestions, [])
+     |> assign(:colors, @colors)}
   end
 
   @impl true

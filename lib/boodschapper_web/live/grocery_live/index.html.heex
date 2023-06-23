@@ -21,6 +21,14 @@
       <.icon name="hero-plus-mini" />
     </span>
   </div>
+  <div
+    class="flex flex-row justify-between items-center hover:cursor-pointer rounded-lg cursor-pointer"
+    phx-click={show_modal("edit_tags_modal")}
+  >
+    <span class="border rounded-full border-black px-2">
+      <.icon name="hero-ellipsis-horizontal" />
+    </span>
+  </div>
 </div>
 
 <div class="my-4 relative">
@@ -129,6 +137,48 @@
       <form phx-submit={JS.push("add_tag") |> hide_modal("add_tag_modal")} class="w-full">
         <input autofocus name="tag_name" type="text" class="w-full border-0 rounded" />
       </form>
+    </div>
+  </div>
+</.modal>
+
+<.modal id="edit_tags_modal">
+  <div class="flex flex-col gap-4">
+    <h1 class="text-lg font-semibold leading-8">Winkels wijzigen</h1>
+    <div>
+      <div class="flex flex-col gap-2 flex-wrap">
+        <%= for tag <- @tags do %>
+          <div class="flex flex-row justify-between gap-2 flex-wrap mb-4 sm:mb-0 justify-items-center select-none">
+          <div class="cursor-pointer">
+            <.tag
+              name={tag.name}
+              color={tag.color}
+            />
+          </div>
+
+          <div class="flex flex-row gap-1 flex-wrap justify-between">
+            <%= for color <- @colors do %>
+              <div class={"w-6 h-6 border rounded
+                           bg-#{color}-100
+                           border-#{color}-500
+                           text-center
+                           align-middle
+                           text-#{color}-500
+                           basis-1/6
+                           sm:basis-auto
+                           hover:ring-2
+                           hover:ring-offset-1
+                           hover:ring-blue-200
+                           rounded
+                           cursor-pointer
+                           #{if tag.color == color, do: "ring-2 ring-offset-1 ring-blue-500", else: ""}
+                         "} >
+                <%= if color == tag.color do %>•<% end %>
+              </div>
+            <% end %>
+          </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </.modal>

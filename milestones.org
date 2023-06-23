@@ -192,6 +192,20 @@ Not really fixed, just recreated...
 :ARCHIVE_TIME: 2023-06-23 Fri 13:41
 :END:
 
+** KILL Fix adding only tags
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-06-23 Fri 13:43
+:END:
+- State "KILL"       from "WAIT"       [2023-06-23 Fri 13:43] \\
+  This is a leftover ticket from other system. That system is killed, thus this
+  ticket is too.
+Do we want to add only tags? Is that ever necessary? If you need the tag, you
+need a grocery, right?
+
+* TODO Edit tag color
+** DONE Make editor modal
+** TODO Make colors clickable
+
 * TODO Authentication
 Currently the site is open to anyone, block it off so we need at least a
 password.
@@ -208,11 +222,6 @@ backup solutions.
 - Match start of suggestion first
 - ...
 
-* TODO Add tag color select
-
-* TODO Edit tags
-Edit color, name
-
 * TODO Add delete button to historic/suggestions
 
 * TODO Tag icons?
@@ -221,6 +230,4 @@ Store brand icons, that's visually neat, esp. on small screen
 * TODO Move flash to top right?
 So that it doesn't overlay stuff, absolute position
 
-* WAIT Fix adding only tags
-Do we want to add only tags? Is that ever necessary? If you need the tag, you
-need a grocery, right?
+* TODO Edit tag name
