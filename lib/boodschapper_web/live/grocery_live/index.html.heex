@@ -30,9 +30,11 @@
     <.icon name="hero-plus" class="h-5 w-5 ml-2" />
     <form phx-submit="save" class="w-full">
       <input
+        id="grocery_input"
         autofocus
         autocomplete="off"
         phx-change="get_suggestions"
+        phx-update="ignore"
         name="name"
         type="text"
         class="w-full border-0 focus:ring-0"
