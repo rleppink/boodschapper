@@ -45,18 +45,18 @@
   <%= if Enum.any?(@suggestions) do %>
     <div
       id="suggestions"
-      class="border-x border-b rounded-b border-zinc-400 z-10 absolute w-full bg-white"
+      class="border-x border-b rounded-b border-zinc-400 z-10 absolute w-full bg-white "
     >
       <%= for suggestion <- @suggestions do %>
         <div
-          class="px-4 py-2 flex flex-row justify-between hover:cursor-pointer hover:bg-zinc-50 rounded-lg"
+          class="px-4 py-2 flex flex-row justify-between items-center hover:cursor-pointer hover:bg-zinc-50 rounded-lg"
           phx-click="save_suggestion"
           phx-value-name={suggestion.name}
           phx-value-tag_ids={suggestion.tags |> Enum.map(& &1.id) |> Jason.encode!()}
         >
-          <span><%= suggestion.name %></span>
+          <span class="mr-2"><%= suggestion.name %></span>
 
-          <div class="flex gap-2">
+          <div class="flex gap-2 flex-wrap">
             <%= for tag <- suggestion.tags do %>
               <.tag name={tag.name} color={tag.color} />
             <% end %>
