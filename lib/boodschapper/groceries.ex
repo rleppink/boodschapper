@@ -182,4 +182,9 @@ defmodule Boodschapper.Groceries do
       Repo.insert(%GroceriesTags{grocery_id: grocery_id, tag_id: tag_id})
     end
   end
+
+  def change_tag_color(tag_id, color) do
+    tag = Repo.get!(Tag, tag_id)
+    Tag.changeset(tag, %{color: color}) |> Repo.update()
+  end
 end

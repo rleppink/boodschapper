@@ -157,21 +157,24 @@
 
           <div class="flex flex-row gap-1 flex-wrap justify-between">
             <%= for color <- @colors do %>
-              <div class={"w-6 h-6 border rounded
-                           bg-#{color}-100
-                           border-#{color}-500
-                           text-center
-                           align-middle
-                           text-#{color}-500
-                           basis-1/6
-                           sm:basis-auto
-                           hover:ring-2
-                           hover:ring-offset-1
-                           hover:ring-blue-200
-                           rounded
-                           cursor-pointer
-                           #{if tag.color == color, do: "ring-2 ring-offset-1 ring-blue-500", else: ""}
-                         "} >
+              <div
+                phx-click="change_tag_color"
+                phx-value-tag_id={tag.id}
+                phx-value-color={color}
+                class={"w-6 h-6 border rounded
+                        bg-#{color}-100
+                        border-#{color}-500
+                        text-center
+                        align-middle
+                        text-#{color}-500
+                        basis-1/6
+                        sm:basis-auto
+                        hover:ring-2
+                        hover:ring-offset-1
+                        hover:ring-blue-200
+                        rounded
+                        cursor-pointer
+                        #{if tag.color == color, do: "ring-2 ring-offset-1 ring-blue-500", else: ""}"} >
                 <%= if color == tag.color do %>•<% end %>
               </div>
             <% end %>

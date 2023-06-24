@@ -17,8 +17,7 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     "blue",
     "indigo",
     "purple",
-    "pink",
-    "gray"
+    "pink"
   ]
 
   @impl true
@@ -170,6 +169,16 @@ defmodule BoodschapperWeb.GroceryLive.Index do
     {:ok, _} = Groceries.create_tag(tag_name, "green")
 
     {:noreply, socket |> assign(:tags, Groceries.list_tags())}
+  end
+
+  @impl true
+  def handle_event("change_tag_color", %{"tag_id" => tag_id, "color" => color}, socket) do
+    Groceries.change_tag_color(tag_id |> String.to_integer(), color)
+
+    {:noreply,
+     socket
+     |> assign(:tags, Groceries.list_tags())
+     |> assign(:groceries, Groceries.list_groceries())}
   end
 
   defp filtered_groceries(groceries, %MapSet{map: map}) when map_size(map) == 0, do: groceries
