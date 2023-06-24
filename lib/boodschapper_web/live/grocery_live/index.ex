@@ -64,6 +64,13 @@ defmodule BoodschapperWeb.GroceryLive.Index do
      )}
   end
 
+  @impl true
+  def handle_info({_, :groceries_updated}, socket) do
+    {:noreply,
+     socket
+     |> assign(:groceries, Groceries.list_groceries())}
+  end
+
   def handle_info(:clear_flash, socket) do
     {:noreply, clear_flash(socket)}
   end
@@ -161,6 +168,13 @@ defmodule BoodschapperWeb.GroceryLive.Index do
         socket
       ) do
     Groceries.toggle_grocery_tag(grocery_id |> String.to_integer(), tag_id |> String.to_integer())
+
+    Phoenix.PubSub.broadcast(
+      Boodschapper.PubSub,
+      @topic,
+      {Boodschapper.PubSub, :groceries_updated}
+    )
+
     {:noreply, socket |> assign(:groceries, Groceries.list_groceries())}
   end
 
