@@ -71,6 +71,13 @@ defmodule BoodschapperWeb.GroceryLive.Index do
      |> assign(:groceries, Groceries.list_groceries())}
   end
 
+  @impl true
+  def handle_info({_, :tags_updated}, socket) do
+    {:noreply,
+     socket
+     |> assign(:tags, Groceries.list_tags())}
+  end
+
   def handle_info(:clear_flash, socket) do
     {:noreply, clear_flash(socket)}
   end
@@ -182,12 +189,30 @@ defmodule BoodschapperWeb.GroceryLive.Index do
   def handle_event("add_tag", %{"tag_name" => tag_name}, socket) do
     {:ok, _} = Groceries.create_tag(tag_name, "green")
 
+    Phoenix.PubSub.broadcast(
+      Boodschapper.PubSub,
+      @topic,
+      {Boodschapper.PubSub, :tags_updated}
+    )
+
     {:noreply, socket |> assign(:tags, Groceries.list_tags())}
   end
 
   @impl true
   def handle_event("change_tag_color", %{"tag_id" => tag_id, "color" => color}, socket) do
     Groceries.change_tag_color(tag_id |> String.to_integer(), color)
+
+    Phoenix.PubSub.broadcast(
+      Boodschapper.PubSub,
+      @topic,
+      {Boodschapper.PubSub, :tags_updated}
+    )
+
+    Phoenix.PubSub.broadcast(
+      Boodschapper.PubSub,
+      @topic,
+      {Boodschapper.PubSub, :groceries_updated}
+    )
 
     {:noreply,
      socket
